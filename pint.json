@@ -1,0 +1,14 @@
+{
+  "preset": "per",
+  "exclude": [
+    "web/wp",
+    "web/app/mu-plugins/bedrock-disallow-indexing",
+    "web/app/plugins",
+    "web/app/themes/twentytwentyfive",
+    "web/app/cache",
+    "web/app/uploads",
+    "web/app/themes/sage/vendor",
+    "web/app/themes/sage/node_modules",
+    "web/app/themes/sage/public"
+  ]
+}
