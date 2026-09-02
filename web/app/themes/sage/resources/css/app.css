@@ -89,12 +89,18 @@
     @apply relative;
   }
 
+  .nav-primary > .nav > .menu-item {
+    /* Padding (not margin) so the hoverable box extends all the way to the
+       dropdown with no dead zone the mouse can slip through and lose :hover. */
+    @apply pb-3 -mb-3;
+  }
+
   .nav-primary > .nav > .menu-item > a {
     @apply font-medium text-ink-700 no-underline hover:text-brand-700;
   }
 
   .nav-primary .sub-menu {
-    @apply invisible absolute left-0 top-full z-20 mt-2 min-w-[14rem] rounded-md border border-ink-200 bg-white py-2 opacity-0 shadow-lg transition-opacity;
+    @apply invisible absolute left-0 top-full z-20 min-w-[14rem] rounded-md border border-ink-200 bg-white py-2 opacity-0 shadow-lg transition-opacity;
   }
 
   .nav-primary .menu-item-has-children:hover > .sub-menu,
