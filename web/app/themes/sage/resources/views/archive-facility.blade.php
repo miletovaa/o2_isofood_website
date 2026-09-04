@@ -2,12 +2,20 @@
 
 @section('content')
   <div class="page-header bg-brand-50">
-    <div class="section pb-0">
+    <div class="section">
       <h1 class="text-3xl">{{ \App\t('Methods & Facilities') }}</h1>
     </div>
   </div>
 
   <div class="section">
+    @php
+      $facilitiesIntro = \App\isofood_option('facilities_intro');
+    @endphp
+
+    @if ($facilitiesIntro)
+      <p class="mb-8 max-w-3xl text-lg text-ink-700">{{ $facilitiesIntro }}</p>
+    @endif
+
     @php
       $types = get_terms(['taxonomy' => 'facility_type', 'hide_empty' => true]);
       $activeType = (int) ($_GET['type'] ?? 0);
@@ -39,7 +47,7 @@
             @if (has_post_thumbnail($facility))
               {!! get_the_post_thumbnail($facility, 'medium', ['class' => 'mb-4 w-full rounded-md object-cover aspect-video']) !!}
             @endif
-            <h2 class="text-lg">{{ get_the_title($facility) }}</h2>
+            <h2 class="text-lg">{!! get_the_title($facility) !!}</h2>
             <p class="mt-2 text-sm text-ink-600">{{ get_field('short_summary', $facility->ID) }}</p>
           </a>
         @endforeach

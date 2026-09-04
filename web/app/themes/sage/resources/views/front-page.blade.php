@@ -48,7 +48,7 @@
         <div class="mt-6 grid gap-6 md:grid-cols-3">
           @foreach ($featuredAreas as $area)
             <a href="{{ get_permalink($area) }}" class="card block no-underline hover:shadow-md">
-              <h3 class="text-lg">{{ get_the_title($area) }}</h3>
+              <h3 class="text-lg">{!! get_the_title($area) !!}</h3>
               <p class="mt-2 text-sm text-ink-600">{{ get_field('short_summary', $area->ID) }}</p>
             </a>
           @endforeach
@@ -66,7 +66,7 @@
               <ul class="mt-3 space-y-3">
                 @foreach ($latestNews as $news)
                   <li>
-                    <a href="{{ get_permalink($news) }}" class="font-medium">{{ get_the_title($news) }}</a>
+                    <a href="{{ get_permalink($news) }}" class="font-medium">{!! get_the_title($news) !!}</a>
                     <p class="text-sm text-ink-500">{{ get_the_date('', $news) }}</p>
                   </li>
                 @endforeach
@@ -80,7 +80,7 @@
               <ul class="mt-3 space-y-3">
                 @foreach ($featuredPublications as $pub)
                   <li>
-                    <a href="{{ get_permalink($pub) }}" class="font-medium">{{ get_the_title($pub) }}</a>
+                    <a href="{{ get_permalink($pub) }}" class="font-medium">{!! get_the_title($pub) !!}</a>
                     <p class="text-sm text-ink-500">{{ get_field('venue', $pub->ID) }} ({{ get_field('year', $pub->ID) }})</p>
                   </li>
                 @endforeach
@@ -95,7 +95,8 @@
       <section class="section">
         <h2 class="text-2xl">{{ \App\t('Follow us on LinkedIn') }}</h2>
         <div class="mt-6 overflow-hidden rounded-lg border border-ink-200">
-          <iframe src="{{ esc_url($linkedinEmbed) }}" height="500" width="100%" frameborder="0" allowfullscreen loading="lazy" title="LinkedIn"></iframe>
+          <!-- <iframe src="{{ esc_url($linkedinEmbed) }}" height="500" width="100%" frameborder="0" allowfullscreen loading="lazy" title="LinkedIn"></iframe> -->
+          <div class="sk-ww-linkedin-page-post" data-embed-id="25710958"></div><script src="https://widgets.sociablekit.com/linkedin-page-posts/widget.js" defer></script>
         </div>
       </section>
     @endif

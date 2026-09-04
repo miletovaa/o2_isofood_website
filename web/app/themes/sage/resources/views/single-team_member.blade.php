@@ -24,7 +24,7 @@
       </div>
 
       <div class="md:col-span-2">
-        <h1 class="text-3xl">{{ get_the_title() }}{{ $title ? ', ' . $title : '' }}</h1>
+        <h1 class="text-3xl">{!! get_the_title() !!}{{ $title ? ', ' . $title : '' }}</h1>
         @if ($position)
           <p class="mt-1 text-brand-700">{{ $position }}</p>
         @endif

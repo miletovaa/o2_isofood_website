@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="page-header bg-brand-50">
-    <div class="section pb-0">
+    <div class="section">
       <h1 class="text-3xl">{{ \App\t('Collaborators') }}</h1>
     </div>
   </div>
@@ -35,7 +35,7 @@
                 @if (has_post_thumbnail($collaborator))
                   {!! get_the_post_thumbnail($collaborator, 'medium', ['class' => 'mx-auto mb-3 h-16 w-auto object-contain']) !!}
                 @endif
-                <p class="font-medium">{{ get_the_title($collaborator) }}</p>
+                <p class="font-medium">{!! get_the_title($collaborator) !!}</p>
               </a>
             @endforeach
           </div>

@@ -31,7 +31,7 @@
               @if ($photoId)
                 {!! wp_get_attachment_image($photoId, 'medium', false, ['class' => 'mb-4 aspect-square w-full rounded-md object-cover']) !!}
               @endif
-              <h2 class="text-lg">{{ get_the_title($member) }}{{ $title ? ', ' . $title : '' }}</h2>
+              <h2 class="text-lg">{!! get_the_title($member) !!}{{ $title ? ', ' . $title : '' }}</h2>
               @if ($position)
                 <p class="mt-1 text-sm text-brand-700">{{ $position }}</p>
               @endif

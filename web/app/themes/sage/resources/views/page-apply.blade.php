@@ -16,10 +16,10 @@
 
   @while (have_posts()) @php(the_post())
     <div class="page-header bg-brand-50">
-      <div class="section pb-0">
-        <h1 class="text-3xl">{{ get_the_title() }}</h1>
+      <div class="section">
+        <h1 class="text-3xl">{!! get_the_title() !!}</h1>
         @if ($position)
-          <p class="mt-2 text-brand-700">{{ \App\t('Applying for') }}: <strong>{{ get_the_title($position) }}</strong></p>
+          <p class="mt-2 text-brand-700">{{ \App\t('Applying for') }}: <strong>{!! get_the_title($position) !!}</strong></p>
         @endif
       </div>
     </div>
@@ -38,7 +38,7 @@
           <select name="position" id="position" class="field-input">
             <option value="">{{ \App\t('General / Speculative Application') }}</option>
             @foreach ($openPositions as $open)
-              <option value="{{ $open->ID }}" @selected($positionId === $open->ID)>{{ get_the_title($open) }}</option>
+              <option value="{{ $open->ID }}" @selected($positionId === $open->ID)>{!! get_the_title($open) !!}</option>
             @endforeach
           </select>
         </div>

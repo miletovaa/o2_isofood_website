@@ -50,7 +50,7 @@
           <h2 class="text-xl">{{ \App\t('Our Team') }}</h2>
           <div class="mt-3 flex flex-wrap gap-4">
             @foreach ($relatedMembers as $member)
-              <a href="{{ get_permalink($member) }}" class="text-sm font-medium">{{ get_the_title($member) }}</a>
+              <a href="{{ get_permalink($member) }}" class="text-sm font-medium">{!! get_the_title($member) !!}</a>
             @endforeach
           </div>
         </div>
@@ -61,7 +61,7 @@
           <h2 class="text-xl">{{ \App\t('Research Projects') }}</h2>
           <ul class="mt-2 list-disc space-y-1 pl-5">
             @foreach ($relatedProjects as $project)
-              <li><a href="{{ get_permalink($project) }}">{{ get_the_title($project) }}</a></li>
+              <li><a href="{{ get_permalink($project) }}">{!! get_the_title($project) !!}</a></li>
             @endforeach
           </ul>
         </div>
@@ -72,7 +72,7 @@
           <h2 class="text-xl">{{ \App\t('Publications') }}</h2>
           <ul class="mt-2 list-disc space-y-1 pl-5">
             @foreach ($relatedPublications as $pub)
-              <li><a href="{{ get_permalink($pub) }}">{{ get_the_title($pub) }}</a></li>
+              <li><a href="{{ get_permalink($pub) }}">{!! get_the_title($pub) !!}</a></li>
             @endforeach
           </ul>
         </div>
@@ -83,7 +83,7 @@
           <h2 class="text-xl">{{ \App\t('Methods & Facilities') }}</h2>
           <ul class="mt-2 list-disc space-y-1 pl-5">
             @foreach ($relatedFacilities as $facility)
-              <li><a href="{{ get_permalink($facility) }}">{{ get_the_title($facility) }}</a></li>
+              <li><a href="{{ get_permalink($facility) }}">{!! get_the_title($facility) !!}</a></li>
             @endforeach
           </ul>
         </div>

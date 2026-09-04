@@ -20,7 +20,7 @@
       <p class="text-ink-600">
         @if ($authors)
           @foreach ($authors as $author)
-            <a href="{{ get_permalink($author) }}">{{ get_the_title($author) }}</a>{{ ! $loop->last ? ', ' : '' }}
+            <a href="{{ get_permalink($author) }}">{!! get_the_title($author) !!}</a>{{ ! $loop->last ? ', ' : '' }}
           @endforeach
         @endif
         {{ $external ? ($authors ? ', ' : '') . $external : '' }}

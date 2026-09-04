@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="page-header bg-brand-50">
-    <div class="section pb-0 flex flex-wrap items-center justify-between gap-4">
+    <div class="section flex flex-wrap items-center justify-between gap-4">
       <h1 class="text-3xl">{{ \App\t('Open Positions') }}</h1>
       <a href="{{ home_url('/apply/') }}" class="btn-primary btn-large btn">{{ \App\t('Apply') }}</a>
     </div>
@@ -31,7 +31,7 @@
           <div class="card">
             <div class="flex flex-wrap items-start justify-between gap-4">
               <div>
-                <h2 class="text-xl"><a href="{{ get_permalink($position) }}">{{ get_the_title($position) }}</a></h2>
+                <h2 class="text-xl"><a href="{{ get_permalink($position) }}">{!! get_the_title($position) !!}</a></h2>
                 <div class="mt-1 flex flex-wrap gap-2 text-sm text-ink-600">
                   @if ($levels)
                     @foreach ($levels as $level)

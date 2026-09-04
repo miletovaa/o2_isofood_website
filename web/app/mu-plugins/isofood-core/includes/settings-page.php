@@ -42,6 +42,13 @@ function settings_fields_schema(): array
             'default' => '',
             'sanitize' => 'sanitize_textarea_field',
         ],
+        'facilities_intro' => [
+            'label' => 'Methods & Facilities Intro Text',
+            'description' => 'Shown at the top of the Methods & Facilities archive page.',
+            'type' => 'textarea',
+            'default' => '',
+            'sanitize' => 'sanitize_textarea_field',
+        ],
         'google_maps_embed_url' => [
             'label' => 'Google Maps Embed URL',
             'description' => 'The src URL of the Google Maps iframe embed for the Contact page.',
@@ -49,13 +56,13 @@ function settings_fields_schema(): array
             'default' => '',
             'sanitize' => 'esc_url_raw',
         ],
-        'linkedin_embed_url' => [
-            'label' => 'LinkedIn Embed URL',
-            'description' => 'The src URL of the LinkedIn iframe embed for the Home page.',
-            'type' => 'url',
-            'default' => '',
-            'sanitize' => 'esc_url_raw',
-        ],
+        // 'linkedin_embed_url' => [
+        //     'label' => 'LinkedIn Embed URL',
+        //     'description' => 'The src URL of the LinkedIn iframe embed for the Home page.',
+        //     'type' => 'url',
+        //     'default' => '',
+        //     'sanitize' => 'esc_url_raw',
+        // ],
         'linkedin_url' => [
             'label' => 'LinkedIn Page URL',
             'type' => 'url',
@@ -145,8 +152,14 @@ function sanitize_settings($input): array
     $output = get_option(OPTION_KEY, []);
 
     foreach ($schema as $key => $field) {
-        $value = $input[$key] ?? '';
-        $output[$key] = call_user_func($field['sanitize'], $value);
+        // A key genuinely absent from $input (e.g. the field was added to the schema
+        // after this form was loaded in the browser) leaves the stored value untouched;
+        // a key present but empty (the field was cleared on purpose) does get saved.
+        if (! array_key_exists($key, $input)) {
+            continue;
+        }
+
+        $output[$key] = call_user_func($field['sanitize'], $input[$key]);
     }
 
     return $output;

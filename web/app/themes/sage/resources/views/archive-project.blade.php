@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="page-header bg-brand-50">
-    <div class="section pb-0">
+    <div class="section">
       <h1 class="text-3xl">{{ \App\t('Research Projects') }}</h1>
     </div>
   </div>
@@ -35,7 +35,7 @@
             $description = get_field('short_description', $project->ID);
           @endphp
           <a href="{{ get_permalink($project) }}" class="card block no-underline hover:shadow-md">
-            <h2 class="text-lg">{{ get_the_title($project) }}{{ $acronym ? ' (' . $acronym . ')' : '' }}</h2>
+            <h2 class="text-lg">{!! get_the_title($project) !!}{{ $acronym ? ' (' . $acronym . ')' : '' }}</h2>
             @if ($funder)
               <p class="mt-1 text-sm text-brand-700">{{ $funder }}</p>
             @endif

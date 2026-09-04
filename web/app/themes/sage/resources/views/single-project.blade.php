@@ -31,7 +31,7 @@
             <h2 class="text-xl">{{ \App\t('Partners') }}</h2>
             <ul class="mt-2 flex flex-wrap gap-3">
               @foreach ($partners as $partner)
-                <li><a href="{{ get_permalink($partner) }}" class="badge no-underline">{{ get_the_title($partner) }}</a></li>
+                <li><a href="{{ get_permalink($partner) }}" class="badge no-underline">{!! get_the_title($partner) !!}</a></li>
               @endforeach
             </ul>
           </div>

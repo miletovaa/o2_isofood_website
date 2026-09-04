@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="page-header bg-brand-50">
-    <div class="section pb-0">
+    <div class="section">
       <h1 class="text-3xl">{{ \App\t('Publications') }}</h1>
     </div>
   </div>
@@ -44,7 +44,7 @@
             $doi = get_field('doi_link', $pub->ID);
           @endphp
           <li class="card">
-            <a href="{{ get_permalink($pub) }}" class="text-lg font-medium">{{ get_the_title($pub) }}</a>
+            <a href="{{ get_permalink($pub) }}" class="text-lg font-medium">{!! get_the_title($pub) !!}</a>
             <p class="mt-1 text-sm text-ink-600">
               {{ trim($authorNames . ($external ? ', ' . $external : ''), ', ') }} &mdash; {{ $venue }} ({{ $year }})
             </p>
