@@ -25,30 +25,48 @@
       ]);
     @endphp
 
-    <section class="bg-brand-50">
-      <div class="section grid items-center gap-10 lg:grid-cols-2">
+    <section class="relative overflow-hidden bg-gradient-to-br from-brand-50 via-brand-50 to-white">
+      <div class="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-brand-100/70 blur-3xl"></div>
+      <div class="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-brand-200/40 blur-3xl"></div>
+
+      <div class="section relative grid items-center gap-12 lg:grid-cols-2">
         <div>
-          <h1 class="text-4xl">{{ $heading }}</h1>
-          <p class="mt-4 text-lg leading-relaxed text-ink-700">
-            The ISO-FOOD Center is a multidisciplinary research center specializing in
-            <strong class="text-ink-900">food authenticity, traceability and quality</strong>,
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-600">
+            Jo&#382;ef Stefan Institute &middot; Department of Environmental Sciences
+          </p>
+          <h1 class="mt-3 text-4xl leading-tight sm:text-5xl">{{ $heading }}</h1>
+          <p class="mt-6 text-xl leading-relaxed text-ink-800">
+            A multidisciplinary research center specializing in
+            <span class="font-semibold text-brand-700">food authenticity, traceability and quality</span>,
             environmental research, archaeology, and health-related sciences.
           </p>
-          <p class="mt-3 leading-relaxed text-ink-600">
+          <p class="mt-4 leading-relaxed text-ink-600">
             We combine stable isotope analysis, mass spectrometry, chemical characterization, and
             advanced statistical methods to investigate the origin, composition, and quality of
             food and biological materials, as well as environmental and archaeological processes.
           </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="{{ home_url('/research-areas/') }}" class="btn-primary btn-large btn">Explore Our Research</a>
+            <a href="{{ home_url('/about/') }}" class="btn-secondary btn-large btn">Meet the Team</a>
+          </div>
         </div>
+
         @if ($groupPhotoId)
-          <div>
-            {!! wp_get_attachment_image($groupPhotoId, 'large', false, ['class' => 'rounded-lg shadow-md w-full h-auto']) !!}
+          <div class="relative">
+            <div class="absolute -inset-4 -z-10 rounded-2xl bg-brand-100/70"></div>
+            {!! wp_get_attachment_image($groupPhotoId, 'large', false, ['class' => 'w-full h-auto rounded-2xl shadow-xl ring-1 ring-black/5']) !!}
           </div>
         @endif
       </div>
 
-      <div class="section pt-0">
-        <div class="card border-brand-200 bg-white">
+      <div class="section relative pt-0">
+        <div class="flex flex-col gap-4 rounded-xl border border-brand-200 bg-white/90 p-6 shadow-sm sm:flex-row sm:items-center">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+              <path d="M12 2 3.5 6v6c0 5 3.6 8.6 8.5 10 4.9-1.4 8.5-5 8.5-10V6L12 2Z" />
+              <path d="m8.5 12 2.5 2.5 5-5" />
+            </svg>
+          </div>
           <p class="text-sm leading-relaxed text-ink-600">
             The Center also performs <strong class="text-ink-900">accredited stable isotope
             analyses</strong>, including the determination of carbon stable isotope ratios by mass
@@ -66,7 +84,7 @@
         <div class="card">
           <span class="badge">01</span>
           <h3 class="mt-3 text-lg">Food Authenticity &amp; Traceability</h3>
-          <p class="mt-2 text-sm text-ink-600">Stable isotope analysis of light elements (C, N, S, O).</p>
+          <p class="mt-2 text-sm text-ink-600">Stable isotope analysis of light elements (C,&nbsp;N,&nbsp;S,&nbsp;O).</p>
         </div>
         <div class="card">
           <span class="badge">02</span>
@@ -96,21 +114,7 @@
       </div>
     </section>
 
-    @if ($featuredAreas)
-      <section class="section">
-        <h2 class="text-2xl">{{ \App\t('Research Areas') }}</h2>
-        <div class="mt-6 grid gap-6 md:grid-cols-3">
-          @foreach ($featuredAreas as $area)
-            <a href="{{ get_permalink($area) }}" class="card block no-underline hover:shadow-md">
-              <h3 class="text-lg">{!! get_the_title($area) !!}</h3>
-              <p class="mt-2 text-sm text-ink-600">{{ get_field('short_summary', $area->ID) }}</p>
-            </a>
-          @endforeach
-        </div>
-      </section>
-    @endif
-
-    @if ($latestNews || $featuredPublications)
+    <!-- @if ($latestNews || $featuredPublications)
       <section class="section bg-ink-50">
         <h2 class="text-2xl">{{ \App\t('Current highlights') }}</h2>
         <div class="mt-6 grid gap-8 md:grid-cols-2">
@@ -143,7 +147,7 @@
           @endif
         </div>
       </section>
-    @endif
+    @endif -->
 
     @if ($linkedinEmbed)
       <section class="section">
