@@ -126,10 +126,9 @@
 
     @if ($latestNews || $featuredPublications || $groupPhotoId)
       <section class="bg-brand-800">
-        <div class="">
-          <div class="mt-6 flex flex-wrap gap-6 lg:flex-nowrap">
-
-            <div class="py-6 px-8">
+        <div class="flex flex-col lg:flex-row lg:items-stretch">
+          <div class="grid flex-1 gap-8 py-10 px-8 sm:grid-cols-2 lg:w-3/5 lg:flex-none">
+            <div class="lg:h-[420px] lg:overflow-y-auto lg:pr-4">
               <h2 class="text-2xl text-white">{{ \App\t('News') }}</h2>
               @if ($latestNews)
                 <ul class="mt-3 space-y-3">
@@ -145,7 +144,7 @@
               @endif
             </div>
 
-            <div class="py-6 px-8">
+            <div class="lg:h-[420px] lg:overflow-y-auto lg:pr-4">
               <h2 class="text-2xl text-white">{{ \App\t('Publications') }}</h2>
               @if ($featuredPublications)
                 <ul class="mt-3 space-y-3">
@@ -160,13 +159,13 @@
                 <p class="mt-3 text-sm text-brand-200">{{ \App\t('No publications to show yet.') }}</p>
               @endif
             </div>
-
-            <div class="max-w-[1/2]">
-              @if ($groupPhotoId)
-                  {!! wp_get_attachment_image($groupPhotoId, 'medium_large', false, ['class' => 'w-full h-auto shadow-md']) !!}
-              @endif
-            </div>
           </div>
+
+          @if ($groupPhotoId)
+            <div class="h-64 lg:h-auto lg:w-2/5">
+              {!! wp_get_attachment_image($groupPhotoId, 'large', false, ['class' => 'h-full w-full object-cover']) !!}
+            </div>
+          @endif
         </div>
       </section>
     @endif

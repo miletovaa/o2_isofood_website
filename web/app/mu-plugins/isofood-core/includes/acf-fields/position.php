@@ -6,6 +6,8 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+const EXTRA_FIELD_SLOTS = 6;
+
 add_action('acf/init', function () {
     if (! function_exists('acf_add_local_field_group')) {
         return;
@@ -105,5 +107,64 @@ add_action('acf/init', function () {
             ],
         ],
         'location' => [[['param' => 'post_type', 'operator' => '==', 'value' => 'position']]],
+    ]);
+
+    // Up to 6 custom application questions per position (e.g. "Required Education"
+    // as a dropdown, "Lab techniques" as checkboxes with an add-your-own option).
+    // See Isofood\Core\get_position_extra_fields() for how these are read back.
+    $extra_fields = [];
+
+    for ($i = 1; $i <= EXTRA_FIELD_SLOTS; $i++) {
+        $extra_fields[] = [
+            'key' => "field_pos_extra_{$i}_label",
+            'label' => 'Question / Requirement Text',
+            'name' => "extra_field_{$i}_label",
+            'type' => 'text',
+            'instructions' => 'Shown to the applicant, e.g. "Required lab techniques".',
+            'required' => 0,
+        ];
+        $extra_fields[] = [
+            'key' => "field_pos_extra_{$i}_type",
+            'label' => 'Answer Type',
+            'name' => "extra_field_{$i}_type",
+            'type' => 'select',
+            'choices' => [
+                'none' => '— Not used —',
+                'checkbox' => 'Checkbox (yes/no self-declaration)',
+                'select' => 'Dropdown (pick one option)',
+                'multi_select' => 'Checkboxes (pick any, with "add your own")',
+            ],
+            'default_value' => 'none',
+        ];
+        $extra_fields[] = [
+            'key' => "field_pos_extra_{$i}_options",
+            'label' => 'Options',
+            'name' => "extra_field_{$i}_options",
+            'type' => 'textarea',
+            'instructions' => 'One option per line. Used for Dropdown and Checkboxes types.',
+            'rows' => 3,
+            'required' => 0,
+            'conditional_logic' => [
+                [['field' => "field_pos_extra_{$i}_type", 'operator' => '==', 'value' => 'select']],
+                [['field' => "field_pos_extra_{$i}_type", 'operator' => '==', 'value' => 'multi_select']],
+            ],
+        ];
+        $extra_fields[] = [
+            'key' => "field_pos_extra_{$i}_allow_other",
+            'label' => 'Let applicants add their own option',
+            'name' => "extra_field_{$i}_allow_other",
+            'type' => 'true_false',
+            'ui' => 1,
+            'required' => 0,
+            'conditional_logic' => [[['field' => "field_pos_extra_{$i}_type", 'operator' => '==', 'value' => 'multi_select']]],
+        ];
+    }
+
+    acf_add_local_field_group([
+        'key' => 'group_position_extra_fields',
+        'title' => 'Application Questions',
+        'fields' => $extra_fields,
+        'location' => [[['param' => 'post_type', 'operator' => '==', 'value' => 'position']]],
+        'instructions_placement' => 'field',
     ]);
 });
