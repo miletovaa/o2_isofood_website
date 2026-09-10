@@ -30,7 +30,7 @@
         x-transition:enter="transition ease-out duration-100"
         x-transition:enter-start="opacity-0 -translate-y-1"
         x-transition:enter-end="opacity-100 translate-y-0"
-        class="absolute right-0 z-20 mt-2 min-w-[8rem] rounded-md border border-ink-200 bg-white py-1 shadow-lg"
+        class="absolute right-0 z-20 mt-3 min-w-[8rem] rounded-lg border border-ink-200 bg-white py-2 shadow-lg"
         role="listbox"
       >
         @foreach ($languages as $language)

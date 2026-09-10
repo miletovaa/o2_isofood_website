@@ -39,7 +39,7 @@
       <div class="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-brand-100/70 blur-3xl"></div>
       <div class="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-brand-200/40 blur-3xl"></div>
 
-      <div class="section relative grid items-center gap-12 lg:grid-cols-3">
+      <div class="section relative grid items-center gap-12 lg:grid-cols-3 lg:mt-16">
         <div class="lg:col-span-2">
           <p class="text-sm font-semibold uppercase tracking-widest text-brand-600">
             Jo&#382;ef Stefan Institute &middot; Department of Environmental Sciences
