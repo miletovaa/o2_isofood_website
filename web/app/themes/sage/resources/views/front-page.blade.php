@@ -29,8 +29,8 @@
       <div class="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-brand-100/70 blur-3xl"></div>
       <div class="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-brand-200/40 blur-3xl"></div>
 
-      <div class="section relative grid items-center gap-12 lg:grid-cols-2">
-        <div>
+      <div class="section relative grid items-center gap-12 lg:grid-cols-3">
+        <div class="lg:col-span-2">
           <p class="text-sm font-semibold uppercase tracking-widest text-brand-600">
             Jo&#382;ef Stefan Institute &middot; Department of Environmental Sciences
           </p>
@@ -45,11 +45,6 @@
             advanced statistical methods to investigate the origin, composition, and quality of
             food and biological materials, as well as environmental and archaeological processes.
           </p>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a href="#key-research-themes" class="btn-primary btn-large btn">Explore Our Research</a>
-            <a href="{{ home_url('/about/') }}" class="btn-secondary btn-large btn">Meet the Team</a>
-            <a href="{{ home_url('/positions/') }}" class="btn-secondary btn-large btn">Job Opportunities</a>
-          </div>
         </div>
 
         @if ($groupPhotoId)
@@ -58,6 +53,12 @@
             {!! wp_get_attachment_image($groupPhotoId, 'large', false, ['class' => 'w-full h-auto rounded-2xl shadow-xl ring-1 ring-black/5']) !!}
           </div>
         @endif
+      </div>
+
+      <div class="section my-0 pt-0 flex flex-wrap gap-3">
+        <a href="#key-research-themes" class="btn-primary btn-large btn">Explore Our Research</a>
+        <a href="{{ home_url('/about/') }}" class="btn-secondary btn-large btn">Meet the Team</a>
+        <a href="{{ home_url('/positions/') }}" class="btn-secondary btn-large btn">Our Positions</a>
       </div>
 
       <div class="section relative pt-0">
@@ -115,40 +116,54 @@
       </div>
     </section>
 
-    <!-- @if ($latestNews || $featuredPublications)
+    @if ($latestNews || $featuredPublications || $groupPhotoId)
       <section class="section bg-ink-50">
-        <h2 class="text-2xl">{{ \App\t('Current highlights') }}</h2>
-        <div class="mt-6 grid gap-8 md:grid-cols-2">
-          @if ($latestNews)
-            <div>
-              <h3 class="text-base font-semibold text-ink-700">{{ \App\t('News') }}</h3>
-              <ul class="mt-3 space-y-3">
-                @foreach ($latestNews as $news)
-                  <li>
-                    <a href="{{ get_permalink($news) }}" class="font-medium">{!! get_the_title($news) !!}</a>
-                    <p class="text-sm text-ink-500">{{ get_the_date('', $news) }}</p>
-                  </li>
-                @endforeach
-              </ul>
-            </div>
-          @endif
+        <div class="grid gap-10 lg:grid-cols-3 lg:items-start">
+          <div class="lg:col-span-2">
+            <h2 class="text-2xl">{{ \App\t('Current highlights') }}</h2>
+            <div class="mt-6 grid gap-8 sm:grid-cols-2">
+              @if ($latestNews)
+                <div>
+                  <h3 class="text-base font-semibold text-ink-700">{{ \App\t('News') }}</h3>
+                  <ul class="mt-3 space-y-3">
+                    @foreach ($latestNews as $news)
+                      <li>
+                        <a href="{{ get_permalink($news) }}" class="font-medium">{!! get_the_title($news) !!}</a>
+                        <p class="text-sm text-ink-500">{{ get_the_date('', $news) }}</p>
+                      </li>
+                    @endforeach
+                  </ul>
+                </div>
+              @endif
 
-          @if ($featuredPublications)
+              @if ($featuredPublications)
+                <div>
+                  <h3 class="text-base font-semibold text-ink-700">{{ \App\t('Publications') }}</h3>
+                  <ul class="mt-3 space-y-3">
+                    @foreach ($featuredPublications as $pub)
+                      <li>
+                        <a href="{{ get_permalink($pub) }}" class="font-medium">{!! get_the_title($pub) !!}</a>
+                        <p class="text-sm text-ink-500">{{ get_field('venue', $pub->ID) }} ({{ get_field('year', $pub->ID) }})</p>
+                      </li>
+                    @endforeach
+                  </ul>
+                </div>
+              @endif
+
+              @if (! $latestNews && ! $featuredPublications)
+                <p class="text-sm text-ink-500">{{ \App\t('No highlights to show yet.') }}</p>
+              @endif
+            </div>
+          </div>
+
+          @if ($groupPhotoId)
             <div>
-              <h3 class="text-base font-semibold text-ink-700">{{ \App\t('Publications') }}</h3>
-              <ul class="mt-3 space-y-3">
-                @foreach ($featuredPublications as $pub)
-                  <li>
-                    <a href="{{ get_permalink($pub) }}" class="font-medium">{!! get_the_title($pub) !!}</a>
-                    <p class="text-sm text-ink-500">{{ get_field('venue', $pub->ID) }} ({{ get_field('year', $pub->ID) }})</p>
-                  </li>
-                @endforeach
-              </ul>
+              {!! wp_get_attachment_image($groupPhotoId, 'medium_large', false, ['class' => 'w-full h-auto rounded-xl shadow-md']) !!}
             </div>
           @endif
         </div>
       </section>
-    @endif -->
+    @endif
 
     @if ($linkedinEmbed)
       <section class="section">

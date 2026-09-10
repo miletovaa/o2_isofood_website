@@ -1,6 +1,6 @@
 <header class="banner border-b border-ink-200 bg-white" x-data="{ mobileOpen: false }">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-    <a class="brand flex items-center gap-2 text-lg font-serif font-semibold text-ink-900 no-underline" href="{{ home_url('/') }}">
+    <a class="brand flex items-center gap-2 text-lg font-sans font-bold text-ink-900 no-underline" href="{{ home_url('/') }}">
       {!! $siteName !!}
     </a>
 

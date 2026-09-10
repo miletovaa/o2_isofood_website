@@ -11,7 +11,7 @@
 <footer class="content-info border-t border-ink-200 bg-ink-50">
   <div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-3 lg:px-8">
     <div>
-      <h2 class="text-base font-serif font-semibold text-ink-900">{!! $siteName !!}</h2>
+      <h2 class="text-base font-sans font-semibold text-ink-900">{!! $siteName !!}</h2>
       @if ($address)
         <p class="mt-2 whitespace-pre-line text-sm text-ink-600">{{ $address }}</p>
       @endif
@@ -22,13 +22,9 @@
       @endif
     </div>
 
-    <nav aria-label="{{ __('Footer', 'sage') }}">
-      @php(dynamic_sidebar('sidebar-footer'))
-    </nav>
-
     @if ($linkedin || $facebook || $twitter || $researchgate)
       <div>
-        <h2 class="text-base font-serif font-semibold text-ink-900">{{ \App\t('Follow us') }}</h2>
+        <h2 class="text-base font-sans font-semibold text-ink-900">{{ \App\t('Follow us') }}</h2>
         <ul class="mt-2 flex flex-col gap-1 text-sm">
           @if ($linkedin)
             <li><a href="{{ esc_url($linkedin) }}" target="_blank" rel="noopener">LinkedIn</a></li>

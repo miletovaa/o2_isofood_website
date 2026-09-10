@@ -13,7 +13,7 @@
     @endphp
 
     @if ($facilitiesIntro)
-      <p class="mb-8 max-w-3xl text-lg text-ink-700">{{ $facilitiesIntro }}</p>
+      <p class="mb-8 text-lg text-ink-700">{!! $facilitiesIntro !!}</p>
     @endif
 
     @php
