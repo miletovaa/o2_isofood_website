@@ -39,7 +39,7 @@
       <div class="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-brand-100/70 blur-3xl"></div>
       <div class="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-brand-200/40 blur-3xl"></div>
 
-      <div class="section relative grid items-center gap-12 lg:grid-cols-3 lg:mt-16">
+      <div class="section relative grid items-center gap-12 lg:grid-cols-3 lg:mt-26">
         <div class="lg:col-span-2">
           <p class="text-sm font-semibold uppercase tracking-widest text-brand-600">
             Jo&#382;ef Stefan Institute &middot; Department of Environmental Sciences
@@ -174,34 +174,45 @@
     @endif
 
     @if ($instruments)
-      <section class="section">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-          <h2 class="text-2xl">{{ \App\t('Our Instruments') }}</h2>
-          <a href="{{ home_url('/facilities/') }}" class="group inline-flex items-center gap-1 font-medium text-brand-700 no-underline">
-            {{ \App\t('Learn more') }}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform group-hover:translate-x-1">
-              <path d="M5 12h14" />
-              <path d="m13 6 6 6-6 6" />
-            </svg>
-          </a>
-        </div>
-
-        <div class="mt-6 -mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0">
-          @foreach ($instruments as $instrument)
-            @php($thumbId = get_post_thumbnail_id($instrument))
-            <a href="{{ get_permalink($instrument) }}" class="group relative block aspect-[4/5] w-[80%] shrink-0 snap-start overflow-hidden rounded-lg no-underline shadow-sm transition-shadow hover:shadow-lg sm:w-auto">
-              @if ($thumbId)
-                {!! wp_get_attachment_image($thumbId, 'medium_large', false, ['class' => 'absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105']) !!}
-              @else
-                <div class="absolute inset-0 bg-gradient-to-br from-brand-600 to-brand-800"></div>
-              @endif
-              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent"></div>
-              <div class="absolute inset-x-0 bottom-0 p-5">
-                <h3 class="text-lg text-white">{!! get_the_title($instrument) !!}</h3>
-                <p class="mt-1 text-sm text-white/80 line-clamp-2">{{ get_field('short_summary', $instrument->ID) }}</p>
-              </div>
+      <section class="bg-brand-800">
+        <div class="section">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <h2 class="text-2xl text-white">{{ \App\t('Our Instruments') }}</h2>
+            <a href="{{ home_url('/facilities/') }}" class="font-medium text-brand-100 no-underline hover:text-white">
+              {{ \App\t('Learn more') }}
             </a>
-          @endforeach
+          </div>
+
+          <div class="relative mt-6" x-data>
+            <div x-ref="instrumentsCarousel" class="-mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0">
+              @foreach ($instruments as $instrument)
+                @php($thumbId = get_post_thumbnail_id($instrument))
+                <a href="{{ get_permalink($instrument) }}" class="group relative block aspect-[4/5] w-[80%] shrink-0 snap-start overflow-hidden rounded-lg no-underline shadow-sm transition-shadow hover:shadow-lg sm:w-auto">
+                  @if ($thumbId)
+                    {!! wp_get_attachment_image($thumbId, 'medium_large', false, ['class' => 'absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105']) !!}
+                  @else
+                    <div class="absolute inset-0 bg-gradient-to-br from-brand-600 to-brand-900"></div>
+                  @endif
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent"></div>
+                  <div class="absolute inset-x-0 bottom-0 p-5">
+                    <h3 class="text-lg text-white">{!! get_the_title($instrument) !!}</h3>
+                    <p class="mt-1 text-sm text-white/80 line-clamp-2">{{ get_field('short_summary', $instrument->ID) }}</p>
+                  </div>
+                </a>
+              @endforeach
+            </div>
+
+            <button
+              type="button"
+              aria-label="{{ \App\t('Scroll for more instruments') }}"
+              @click="$refs.instrumentsCarousel.scrollBy({ left: 300, behavior: 'smooth' })"
+              class="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-brand-800 shadow-lg transition-transform hover:scale-105 sm:hidden"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+            </button>
+          </div>
         </div>
       </section>
     @endif
