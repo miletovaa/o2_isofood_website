@@ -92,40 +92,85 @@
       <h2 class="text-2xl">Key Research Themes</h2>
       <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <div class="card">
-          <span class="badge">01</span>
+          <span class="flex h-12 w-12 items-center justify-center rounded-full bg-brand-50 text-brand-600">{!! \App\research_theme_icon('authenticity') !!}</span>
           <h3 class="mt-3 text-lg">Food Authenticity &amp; Traceability</h3>
           <p class="mt-2 text-sm text-ink-600">Stable isotope analysis of light elements (C,&nbsp;N,&nbsp;S,&nbsp;O).</p>
         </div>
         <div class="card">
-          <span class="badge">02</span>
+          <span class="flex h-12 w-12 items-center justify-center rounded-full bg-brand-50 text-brand-600">{!! \App\research_theme_icon('quality') !!}</span>
           <h3 class="mt-3 text-lg">Food Quality</h3>
           <p class="mt-2 text-sm text-ink-600">GC-MS and LC-MS/MS analysis of fatty acids, amino acids, phenolic compounds, and other bioactive constituents.</p>
         </div>
         <div class="card">
-          <span class="badge">03</span>
+          <span class="flex h-12 w-12 items-center justify-center rounded-full bg-brand-50 text-brand-600">{!! \App\research_theme_icon('environmental') !!}</span>
           <h3 class="mt-3 text-lg">Environmental Research</h3>
           <p class="mt-2 text-sm text-ink-600">Investigation of biogeochemical processes, ecosystem interactions, and the transfer of elements and compounds through environmental systems.</p>
         </div>
         <div class="card">
-          <span class="badge">04</span>
+          <span class="flex h-12 w-12 items-center justify-center rounded-full bg-brand-50 text-brand-600">{!! \App\research_theme_icon('archaeology') !!}</span>
           <h3 class="mt-3 text-lg">Archaeology</h3>
           <p class="mt-2 text-sm text-ink-600">Isotope and chemical analysis of archaeological materials to explore past diets, mobility, provenance, and human&ndash;environment interactions.</p>
         </div>
         <div class="card">
-          <span class="badge">05</span>
+          <span class="flex h-12 w-12 items-center justify-center rounded-full bg-brand-50 text-brand-600">{!! \App\research_theme_icon('databases') !!}</span>
           <h3 class="mt-3 text-lg">Databases &amp; Data Resources</h3>
           <p class="mt-2 text-sm text-ink-600">Development and maintenance of reference databases (<a href="http://isofoodtrack.ijs.si/" target="_blank" rel="noopener">isofoodtrack.ijs.si</a>) for stable isotope and chemical data.</p>
         </div>
         <div class="card">
-          <span class="badge">06</span>
+          <span class="flex h-12 w-12 items-center justify-center rounded-full bg-brand-50 text-brand-600">{!! \App\research_theme_icon('data-processing') !!}</span>
           <h3 class="mt-3 text-lg">Advanced Data Processing</h3>
           <p class="mt-2 text-sm text-ink-600">Statistical, chemometric, and multivariate modelling for data interpretation, classification, and geographical origin discrimination.</p>
         </div>
       </div>
     </section>
 
+    @if ($instruments)
+      <section class="bg-brand-800">
+        <div class="section">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <h2 class="text-2xl text-white">{{ \App\t('Our Instruments') }}</h2>
+            <a href="{{ home_url('/facilities/') }}" class="font-medium text-brand-100 no-underline hover:text-white">
+              {{ \App\t('Learn more') }}
+            </a>
+          </div>
+
+          <div class="relative mt-6" x-data>
+            <div x-ref="instrumentsCarousel" class="-mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0">
+              @foreach ($instruments as $instrument)
+                @php($thumbId = get_post_thumbnail_id($instrument))
+                <a href="{{ get_permalink($instrument) }}" class="group relative block aspect-[4/5] w-[80%] shrink-0 snap-start overflow-hidden rounded-lg no-underline shadow-sm transition-shadow hover:shadow-lg sm:w-auto">
+                  @if ($thumbId)
+                    {!! wp_get_attachment_image($thumbId, 'medium_large', false, ['class' => 'absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105']) !!}
+                  @else
+                    <div class="absolute inset-0 bg-gradient-to-br from-brand-600 to-brand-900"></div>
+                  @endif
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent"></div>
+                  <div class="absolute inset-x-0 bottom-0 p-5">
+                    <h3 class="text-lg text-white">{!! get_the_title($instrument) !!}</h3>
+                    <p class="mt-1 text-sm text-white/80 line-clamp-2">{{ get_field('short_summary', $instrument->ID) }}</p>
+                  </div>
+                </a>
+              @endforeach
+            </div>
+
+            <button
+              type="button"
+              aria-label="{{ \App\t('Scroll for more instruments') }}"
+              @click="$refs.instrumentsCarousel.scrollBy({ left: 300, behavior: 'smooth' })"
+              class="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-brand-800 shadow-lg transition-transform hover:scale-105 sm:hidden"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    @endif
+
+
     @if ($latestNews || $featuredPublications || $groupPhotoId)
-      <section class="section bg-ink-50">
+      <section class="section bg-ink-50 mt-8">
         <div class="grid gap-10 lg:grid-cols-3 lg:items-start">
           <div class="lg:col-span-2">
             <h2 class="text-2xl">{{ \App\t('Current highlights') }}</h2>
@@ -169,50 +214,6 @@
               {!! wp_get_attachment_image($groupPhotoId, 'medium_large', false, ['class' => 'w-full h-auto rounded-xl shadow-md']) !!}
             </div>
           @endif
-        </div>
-      </section>
-    @endif
-
-    @if ($instruments)
-      <section class="bg-brand-800">
-        <div class="section">
-          <div class="flex flex-wrap items-end justify-between gap-4">
-            <h2 class="text-2xl text-white">{{ \App\t('Our Instruments') }}</h2>
-            <a href="{{ home_url('/facilities/') }}" class="font-medium text-brand-100 no-underline hover:text-white">
-              {{ \App\t('Learn more') }}
-            </a>
-          </div>
-
-          <div class="relative mt-6" x-data>
-            <div x-ref="instrumentsCarousel" class="-mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0">
-              @foreach ($instruments as $instrument)
-                @php($thumbId = get_post_thumbnail_id($instrument))
-                <a href="{{ get_permalink($instrument) }}" class="group relative block aspect-[4/5] w-[80%] shrink-0 snap-start overflow-hidden rounded-lg no-underline shadow-sm transition-shadow hover:shadow-lg sm:w-auto">
-                  @if ($thumbId)
-                    {!! wp_get_attachment_image($thumbId, 'medium_large', false, ['class' => 'absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105']) !!}
-                  @else
-                    <div class="absolute inset-0 bg-gradient-to-br from-brand-600 to-brand-900"></div>
-                  @endif
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent"></div>
-                  <div class="absolute inset-x-0 bottom-0 p-5">
-                    <h3 class="text-lg text-white">{!! get_the_title($instrument) !!}</h3>
-                    <p class="mt-1 text-sm text-white/80 line-clamp-2">{{ get_field('short_summary', $instrument->ID) }}</p>
-                  </div>
-                </a>
-              @endforeach
-            </div>
-
-            <button
-              type="button"
-              aria-label="{{ \App\t('Scroll for more instruments') }}"
-              @click="$refs.instrumentsCarousel.scrollBy({ left: 300, behavior: 'smooth' })"
-              class="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-brand-800 shadow-lg transition-transform hover:scale-105 sm:hidden"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
-                <path d="m9 6 6 6-6 6" />
-              </svg>
-            </button>
-          </div>
         </div>
       </section>
     @endif
