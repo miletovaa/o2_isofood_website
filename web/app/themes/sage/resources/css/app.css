@@ -102,27 +102,39 @@
     @apply relative;
   }
 
-  .nav-primary > .nav > .menu-item {
-    /* Padding (not margin) so the hoverable box extends all the way to the
-       dropdown with no dead zone the mouse can slip through and lose :hover. */
-    @apply pb-3 -mb-3;
-  }
-
   .nav-primary > .nav > .menu-item > a {
-    @apply font-medium text-ink-700 no-underline hover:text-brand-700;
+    @apply flex items-center font-medium text-ink-700 no-underline hover:text-brand-700;
   }
 
+  /* No gap (top-0, no margin) between the trigger and the panel below it, so
+     the mouse never leaves the hoverable area while moving into the dropdown. */
   .nav-primary .sub-menu {
-    @apply invisible absolute left-0 top-full z-20 min-w-[14rem] rounded-md border border-ink-200 bg-white py-2 opacity-0 shadow-lg transition-opacity;
+    @apply invisible absolute left-0 top-full z-20 mt-3 min-w-[15rem] -translate-y-1 rounded-lg border border-ink-200 bg-white py-2 opacity-0 shadow-lg transition-[opacity,transform] duration-150 before:absolute before:-top-3 before:left-0 before:h-3 before:w-full before:content-[''];
   }
 
   .nav-primary .menu-item-has-children:hover > .sub-menu,
   .nav-primary .menu-item-has-children:focus-within > .sub-menu {
-    @apply visible opacity-100;
+    @apply visible translate-y-0 opacity-100;
   }
 
   .nav-primary .sub-menu .menu-item a {
-    @apply block px-4 py-2 text-ink-700 no-underline hover:bg-brand-50 hover:text-brand-700;
+    @apply block px-4 py-2 text-sm text-ink-700 no-underline hover:bg-brand-50 hover:text-brand-700;
+  }
+
+  /* CSS-only chevron (no extra markup needed) on any nav item that has children. */
+  .nav-primary .menu-item-has-children > a::after {
+    content: "";
+    display: inline-block;
+    margin-left: 0.4em;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid currentColor;
+    transition: transform 0.2s ease;
+  }
+
+  .nav-primary .menu-item-has-children:hover > a::after,
+  .nav-primary .menu-item-has-children:focus-within > a::after {
+    transform: rotate(180deg);
   }
 
   .nav-mobile .sub-menu {
