@@ -135,10 +135,10 @@
           </div>
 
           <div class="relative mt-6" x-data>
-            <div x-ref="instrumentsCarousel" class="-mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0">
+            <div x-ref="instrumentsCarousel" class="-mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-4 pb-4 sm:mx-0 sm:px-0">
               @foreach ($instruments as $instrument)
                 @php($thumbId = get_post_thumbnail_id($instrument))
-                <a href="{{ get_permalink($instrument) }}" class="group relative block aspect-[4/5] w-[80%] shrink-0 snap-start overflow-hidden rounded-lg no-underline shadow-sm transition-shadow hover:shadow-lg sm:w-auto">
+                <a href="{{ get_permalink($instrument) }}" class="group relative block aspect-[5/4] w-[85%] shrink-0 snap-start overflow-hidden rounded-lg no-underline shadow-sm transition-shadow hover:shadow-lg sm:w-[360px]">
                   @if ($thumbId)
                     {!! wp_get_attachment_image($thumbId, 'medium_large', false, ['class' => 'absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105']) !!}
                   @else
@@ -156,8 +156,8 @@
             <button
               type="button"
               aria-label="{{ \App\t('Scroll for more instruments') }}"
-              @click="$refs.instrumentsCarousel.scrollBy({ left: 300, behavior: 'smooth' })"
-              class="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-brand-800 shadow-lg transition-transform hover:scale-105 sm:hidden"
+              @click="$refs.instrumentsCarousel.scrollBy({ left: 380, behavior: 'smooth' })"
+              class="absolute -right-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white text-brand-800 shadow-lg ring-1 ring-black/5 transition-transform hover:scale-110 sm:-right-5"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
                 <path d="m9 6 6 6-6 6" />
