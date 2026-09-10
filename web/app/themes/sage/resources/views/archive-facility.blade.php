@@ -18,7 +18,22 @@
   <div class="section">
     @php
       $types = get_terms(['taxonomy' => 'facility_type', 'hide_empty' => true]);
-      $activeType = (int) ($_GET['type'] ?? 0);
+
+      $instrumentTerm = null;
+      foreach ($types as $type) {
+        if ($type->slug === 'instrument') {
+          $instrumentTerm = $type;
+          break;
+        }
+      }
+
+      if (isset($_GET['type'])) {
+        // ?type=all is the explicit "All" choice; anything else is a term ID.
+        $activeType = $_GET['type'] === 'all' ? 0 : (int) $_GET['type'];
+      } else {
+        // No filter chosen yet: default to Instruments.
+        $activeType = $instrumentTerm ? $instrumentTerm->term_id : 0;
+      }
 
       $args = ['post_type' => 'facility', 'numberposts' => -1];
       if ($activeType) {
@@ -33,7 +48,7 @@
 
     @if ($types)
       <div class="mb-8 flex flex-wrap gap-2">
-        <a href="{{ esc_url(remove_query_arg('type')) }}" class="badge no-underline {{ ! $activeType ? 'bg-brand-600 text-white' : '' }}">{{ \App\t('All') }}</a>
+        <a href="{{ esc_url(add_query_arg('type', 'all')) }}" class="badge no-underline {{ ! $activeType ? 'bg-brand-600 text-white' : '' }}">{{ \App\t('All') }}</a>
         @foreach ($types as $type)
           <a href="{{ esc_url(add_query_arg('type', $type->term_id)) }}" class="badge no-underline {{ $activeType === $type->term_id ? 'bg-brand-600 text-white' : '' }}">{{ $type->name }}</a>
         @endforeach
