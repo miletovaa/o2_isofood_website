@@ -31,7 +31,7 @@
         <div class="mt-8">
           <h2 class="text-xl">{{ \App\t('Methods Used') }}</h2>
           <ul class="mt-2 list-disc pl-5 text-ink-700">
-            @foreach (array_filter(array_map('trim', explode("\n", $methods))) as $method)
+            @foreach (\App\lines_to_list($methods) as $method)
               <li>{{ $method }}</li>
             @endforeach
           </ul>

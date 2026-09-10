@@ -55,6 +55,19 @@ function field_label(string $selector, $post_id = false): string
 }
 
 /**
+ * Split a plain "one item per line" textarea field into a clean array,
+ * dropping blank lines. Used for admin-friendly bullet-list content.
+ */
+function lines_to_list(?string $text): array
+{
+    if (! $text) {
+        return [];
+    }
+
+    return array_values(array_filter(array_map('trim', explode("\n", $text))));
+}
+
+/**
  * Posts of a given type tagged with a research_topic term (the taxonomy backing
  * the research_area CPT's cross-linking; see Isofood\Core\sync_research_area_term()).
  */

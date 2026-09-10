@@ -65,9 +65,9 @@
             </svg>
           </div>
           <p class="text-sm leading-relaxed text-ink-600">
-            We combine stable isotope analysis, mass spectrometry, chemical characterization, and
-            advanced statistical methods to investigate the origin, composition, and quality of
-            food and biological materials, as well as environmental and archaeological processes.<br><br>
+            We combine <strong class="text-ink-900">stable isotope analysis, mass spectrometry, chemical characterization</strong>, and
+            <strong class="text-ink-900">advanced statistical methods</strong> to investigate the origin, composition, and quality of
+            food and biological materials, as well as environmental and archaeological processes.<br>
             The Center also performs <strong class="text-ink-900">accredited stable isotope
             analyses</strong>, including the determination of carbon stable isotope ratios by mass
             spectrometry and the determination of oxygen stable isotope ratios in water extracted

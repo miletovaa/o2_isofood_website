@@ -23,6 +23,7 @@
         @foreach ($openPositions as $position)
           @php
             $id = $position->ID;
+            $fieldOfWork = get_field('field_of_work', $id);
             $location = get_field('workplace_location', $id);
             $deadline = get_field('application_deadline', $id);
             $levels = get_the_terms($id, 'position_type');
@@ -33,6 +34,9 @@
               <div>
                 <h2 class="text-xl"><a href="{{ get_permalink($position) }}">{!! get_the_title($position) !!}</a></h2>
                 <div class="mt-1 flex flex-wrap gap-2 text-sm text-ink-600">
+                  @if ($fieldOfWork)
+                    <span class="badge">{{ $fieldOfWork }}</span>
+                  @endif
                   @if ($levels)
                     @foreach ($levels as $level)
                       <span class="badge">{{ $level->name }}</span>

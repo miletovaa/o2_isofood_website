@@ -7,8 +7,12 @@
 
     @php
       $id = get_the_ID();
-      $requirements = get_field('requirements', $id);
-      $offer = get_field('offer', $id);
+      $fieldOfWork = get_field('field_of_work', $id);
+      $responsibilities = \App\lines_to_list(get_field('responsibilities', $id));
+      $requirements = \App\lines_to_list(get_field('requirements', $id));
+      $additionalRequirements = \App\lines_to_list(get_field('additional_requirements', $id));
+      $expectedCompetencies = \App\lines_to_list(get_field('expected_competencies', $id));
+      $offer = \App\lines_to_list(get_field('offer', $id));
       $location = get_field('workplace_location', $id);
       $deadline = get_field('application_deadline', $id);
       $startDate = get_field('start_date', $id);
@@ -18,21 +22,68 @@
 
     <div class="section grid gap-10 lg:grid-cols-3">
       <div class="lg:col-span-2">
-        <div class="prose max-w-none">
-          <?php the_content(); ?>
-        </div>
+        @if ($fieldOfWork)
+          <span class="badge">{{ $fieldOfWork }}</span>
+        @endif
+
+        @if (get_the_content())
+          <div class="prose mt-4 max-w-none">
+            <?php the_content(); ?>
+          </div>
+        @endif
+
+        @if ($responsibilities)
+          <div class="mt-8">
+            <h2 class="text-xl">{{ \App\t('Job Description & Responsibilities') }}</h2>
+            <ul class="mt-3 list-disc space-y-2 pl-5 text-ink-700 marker:text-brand-500">
+              @foreach ($responsibilities as $item)
+                <li>{{ $item }}</li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
 
         @if ($requirements)
-          <div class="prose mt-8 max-w-none">
+          <div class="mt-8">
             <h2 class="text-xl">{{ \App\t('Required Education & Qualifications') }}</h2>
-            {!! $requirements !!}
+            <ul class="mt-3 list-disc space-y-2 pl-5 text-ink-700 marker:text-brand-500">
+              @foreach ($requirements as $item)
+                <li>{{ $item }}</li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
+
+        @if ($additionalRequirements)
+          <div class="mt-8">
+            <h2 class="text-xl">{{ \App\t('Additional Requirements') }}</h2>
+            <ul class="mt-3 list-disc space-y-2 pl-5 text-ink-700 marker:text-brand-500">
+              @foreach ($additionalRequirements as $item)
+                <li>{{ $item }}</li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
+
+        @if ($expectedCompetencies)
+          <div class="mt-8">
+            <h2 class="text-xl">{{ \App\t('Expected Knowledge & Competencies') }}</h2>
+            <ul class="mt-3 list-disc space-y-2 pl-5 text-ink-700 marker:text-brand-500">
+              @foreach ($expectedCompetencies as $item)
+                <li>{{ $item }}</li>
+              @endforeach
+            </ul>
           </div>
         @endif
 
         @if ($offer)
-          <div class="prose mt-8 max-w-none">
+          <div class="mt-8 rounded-xl border border-brand-200 bg-brand-50 p-6">
             <h2 class="text-xl">{{ \App\t('We Offer') }}</h2>
-            {!! $offer !!}
+            <ul class="mt-3 list-disc space-y-2 pl-5 text-ink-700 marker:text-brand-500">
+              @foreach ($offer as $item)
+                <li>{{ $item }}</li>
+              @endforeach
+            </ul>
           </div>
         @endif
       </div>
