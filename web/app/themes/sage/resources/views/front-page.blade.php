@@ -125,95 +125,69 @@
     </section>
 
     @if ($instruments)
-      <section class="bg-brand-800">
-        <div class="section">
-          <div class="flex flex-wrap items-end justify-between gap-4">
-            <h2 class="text-2xl text-white">{{ \App\t('Our Instruments') }}</h2>
-            <a href="{{ home_url('/facilities/') }}" class="font-medium text-brand-100 no-underline hover:text-white">
-              {{ \App\t('Learn more') }}
-            </a>
-          </div>
-
-          <div class="relative mt-6" x-data>
-            <div x-ref="instrumentsCarousel" class="-mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-4 pb-4 sm:mx-0 sm:px-0">
-              @foreach ($instruments as $instrument)
-                @php($thumbId = get_post_thumbnail_id($instrument))
-                <a href="{{ get_permalink($instrument) }}" class="group relative block aspect-[5/4] w-[85%] shrink-0 snap-start overflow-hidden rounded-lg no-underline shadow-sm transition-shadow hover:shadow-lg sm:w-[360px]">
-                  @if ($thumbId)
-                    {!! wp_get_attachment_image($thumbId, 'medium_large', false, ['class' => 'absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105']) !!}
-                  @else
-                    <div class="absolute inset-0 bg-gradient-to-br from-brand-600 to-brand-900"></div>
-                  @endif
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent"></div>
-                  <div class="absolute inset-x-0 bottom-0 p-5">
-                    <h3 class="text-lg text-white">{!! get_the_title($instrument) !!}</h3>
-                    <p class="mt-1 text-sm text-white/80 line-clamp-2">{{ get_field('short_summary', $instrument->ID) }}</p>
-                  </div>
-                </a>
-              @endforeach
-            </div>
-
-            <button
-              type="button"
-              aria-label="{{ \App\t('Scroll for more instruments') }}"
-              @click="$refs.instrumentsCarousel.scrollBy({ left: 380, behavior: 'smooth' })"
-              class="absolute -right-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white text-brand-800 shadow-lg ring-1 ring-black/5 transition-transform hover:scale-110 sm:-right-5"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
-                <path d="m9 6 6 6-6 6" />
-              </svg>
-            </button>
-          </div>
+      <section class="section bg-ink-50">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <h2 class="text-2xl">{{ \App\t('Our Instruments') }}</h2>
+          <a href="{{ home_url('/facilities/') }}" class="font-medium text-brand-700 no-underline hover:text-brand-900">
+            {{ \App\t('Learn more') }}
+          </a>
         </div>
+
+        <ul class="mt-6 grid gap-8 sm:grid-cols-3">
+          @foreach ($instruments as $instrument)
+            <li>
+              <a href="{{ get_permalink($instrument) }}" class="font-medium">{!! get_the_title($instrument) !!}</a>
+              <p class="mt-1 text-sm text-ink-500">{{ get_field('short_summary', $instrument->ID) }}</p>
+            </li>
+          @endforeach
+        </ul>
       </section>
     @endif
 
-
     @if ($latestNews || $featuredPublications || $groupPhotoId)
-      <section class="section bg-ink-50 mt-8">
-        <div class="grid gap-10 lg:grid-cols-3 lg:items-start">
-          <div class="lg:col-span-2">
-            <h2 class="text-2xl">{{ \App\t('Current highlights') }}</h2>
-            <div class="mt-6 grid gap-8 sm:grid-cols-2">
-              @if ($latestNews)
-                <div>
-                  <h3 class="text-base font-semibold text-ink-700">{{ \App\t('News') }}</h3>
-                  <ul class="mt-3 space-y-3">
-                    @foreach ($latestNews as $news)
-                      <li>
-                        <a href="{{ get_permalink($news) }}" class="font-medium">{!! get_the_title($news) !!}</a>
-                        <p class="text-sm text-ink-500">{{ get_the_date('', $news) }}</p>
-                      </li>
-                    @endforeach
-                  </ul>
-                </div>
-              @endif
+      <section class="bg-brand-800">
+        <div class="section">
+          <h2 class="text-2xl text-white">{{ \App\t('Current highlights') }}</h2>
 
-              @if ($featuredPublications)
-                <div>
-                  <h3 class="text-base font-semibold text-ink-700">{{ \App\t('Publications') }}</h3>
-                  <ul class="mt-3 space-y-3">
-                    @foreach ($featuredPublications as $pub)
-                      <li>
-                        <a href="{{ get_permalink($pub) }}" class="font-medium">{!! get_the_title($pub) !!}</a>
-                        <p class="text-sm text-ink-500">{{ get_field('venue', $pub->ID) }} ({{ get_field('year', $pub->ID) }})</p>
-                      </li>
-                    @endforeach
-                  </ul>
-                </div>
-              @endif
-
-              @if (! $latestNews && ! $featuredPublications)
-                <p class="text-sm text-ink-500">{{ \App\t('No highlights to show yet.') }}</p>
-              @endif
-            </div>
-          </div>
-
-          @if ($groupPhotoId)
+          <div class="mt-6 grid gap-10 sm:grid-cols-3">
             <div>
-              {!! wp_get_attachment_image($groupPhotoId, 'medium_large', false, ['class' => 'w-full h-auto rounded-xl shadow-md']) !!}
+              <h3 class="text-base font-semibold text-brand-100">{{ \App\t('News') }}</h3>
+              @if ($latestNews)
+                <ul class="mt-3 space-y-3">
+                  @foreach ($latestNews as $news)
+                    <li>
+                      <a href="{{ get_permalink($news) }}" class="font-medium text-white hover:text-brand-100">{!! get_the_title($news) !!}</a>
+                      <p class="text-sm text-brand-200">{{ get_the_date('', $news) }}</p>
+                    </li>
+                  @endforeach
+                </ul>
+              @else
+                <p class="mt-3 text-sm text-brand-200">{{ \App\t('No news to show yet.') }}</p>
+              @endif
             </div>
-          @endif
+
+            <div>
+              <h3 class="text-base font-semibold text-brand-100">{{ \App\t('Publications') }}</h3>
+              @if ($featuredPublications)
+                <ul class="mt-3 space-y-3">
+                  @foreach ($featuredPublications as $pub)
+                    <li>
+                      <a href="{{ get_permalink($pub) }}" class="font-medium text-white hover:text-brand-100">{!! get_the_title($pub) !!}</a>
+                      <p class="text-sm text-brand-200">{{ get_field('venue', $pub->ID) }} ({{ get_field('year', $pub->ID) }})</p>
+                    </li>
+                  @endforeach
+                </ul>
+              @else
+                <p class="mt-3 text-sm text-brand-200">{{ \App\t('No publications to show yet.') }}</p>
+              @endif
+            </div>
+
+            @if ($groupPhotoId)
+              <div>
+                {!! wp_get_attachment_image($groupPhotoId, 'medium_large', false, ['class' => 'w-full h-auto rounded-xl shadow-md']) !!}
+              </div>
+            @endif
+          </div>
         </div>
       </section>
     @endif
