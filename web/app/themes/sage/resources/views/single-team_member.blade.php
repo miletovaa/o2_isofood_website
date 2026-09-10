@@ -40,7 +40,7 @@
             <div><dt class="inline font-medium">SICRIS / ARIS:</dt> <dd class="inline">{{ $sicris }}</dd></div>
           @endif
           @if ($profileLink)
-            <div><dt class="inline font-medium">{{ \App\t('Profile') }}:</dt> <dd class="inline"><a href="{{ esc_url($profileLink) }}" target="_blank" rel="noopener">{{ esc_url($profileLink) }}</a></dd></div>
+            <div><dt class="inline font-medium">{{ \App\t('Profile') }}:</dt> <dd class="inline"><a href="{!! esc_url($profileLink) !!}" target="_blank" rel="noopener">{!! esc_url($profileLink) !!}</a></dd></div>
           @endif
         </dl>
 

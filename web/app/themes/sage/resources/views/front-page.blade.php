@@ -52,12 +52,12 @@
           </p>
         </div>
 
-        @if ($groupPhotoId)
+        <!-- @if ($groupPhotoId)
           <div class="relative">
             <div class="absolute -inset-4 -z-10 rounded-2xl bg-brand-100/70"></div>
             {!! wp_get_attachment_image($groupPhotoId, 'large', false, ['class' => 'w-full h-auto rounded-2xl shadow-xl ring-1 ring-black/5']) !!}
           </div>
-        @endif
+        @endif -->
       </div>
 
       <div class="section my-0 pt-0 flex flex-wrap gap-3">
@@ -126,12 +126,11 @@
 
     @if ($latestNews || $featuredPublications || $groupPhotoId)
       <section class="bg-brand-800">
-        <div class="section">
-          <h2 class="text-2xl text-white">{{ \App\t('Current highlights') }}</h2>
+        <div class="">
+          <div class="mt-6 flex flex-wrap gap-6 lg:flex-nowrap">
 
-          <div class="mt-6 grid gap-10 sm:grid-cols-3">
-            <div>
-              <h3 class="text-base font-semibold text-brand-100">{{ \App\t('News') }}</h3>
+            <div class="py-6 px-8">
+              <h2 class="text-2xl text-white">{{ \App\t('News') }}</h2>
               @if ($latestNews)
                 <ul class="mt-3 space-y-3">
                   @foreach ($latestNews as $news)
@@ -146,8 +145,8 @@
               @endif
             </div>
 
-            <div>
-              <h3 class="text-base font-semibold text-brand-100">{{ \App\t('Publications') }}</h3>
+            <div class="py-6 px-8">
+              <h2 class="text-2xl text-white">{{ \App\t('Publications') }}</h2>
               @if ($featuredPublications)
                 <ul class="mt-3 space-y-3">
                   @foreach ($featuredPublications as $pub)
@@ -162,11 +161,11 @@
               @endif
             </div>
 
-            @if ($groupPhotoId)
-              <div>
-                {!! wp_get_attachment_image($groupPhotoId, 'medium_large', false, ['class' => 'w-full h-auto rounded-xl shadow-md']) !!}
-              </div>
-            @endif
+            <div class="max-w-[1/2]">
+              @if ($groupPhotoId)
+                  {!! wp_get_attachment_image($groupPhotoId, 'medium_large', false, ['class' => 'w-full h-auto shadow-md']) !!}
+              @endif
+            </div>
           </div>
         </div>
       </section>
@@ -174,7 +173,7 @@
 
 
     @if ($instruments)
-      <section class="section bg-ink-50 mt-12">
+      <section class="section bg-ink-50 mt-12 rounded-lg">
         <div class="flex flex-wrap items-end justify-between gap-4">
           <h2 class="text-2xl">{{ \App\t('Our Instruments') }}</h2>
           <a href="{{ home_url('/facilities/') }}" class="font-medium text-brand-700 no-underline hover:text-brand-900">
@@ -205,7 +204,7 @@
       <section class="section">
         <h2 class="text-2xl">{{ \App\t('Follow us on LinkedIn') }}</h2>
         <div class="mt-6 overflow-hidden rounded-lg border border-ink-200">
-          <!-- <iframe src="{{ esc_url($linkedinEmbed) }}" height="500" width="100%" frameborder="0" allowfullscreen loading="lazy" title="LinkedIn"></iframe> -->
+          <!-- <iframe src="{!! esc_url($linkedinEmbed) !!}" height="500" width="100%" frameborder="0" allowfullscreen loading="lazy" title="LinkedIn"></iframe> -->
           <div class="sk-ww-linkedin-page-post" data-embed-id="25710958"></div><script src="https://widgets.sociablekit.com/linkedin-page-posts/widget.js" defer></script>
         </div>
       </section>

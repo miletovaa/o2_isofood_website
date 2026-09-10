@@ -13,8 +13,8 @@
     @endphp
 
     <div class="mb-8 flex gap-2">
-      <a href="{{ esc_url(add_query_arg('status', 'current')) }}" class="btn {{ $status === 'current' ? 'btn-primary' : 'btn-secondary' }}">{{ \App\t('Current') }}</a>
-      <a href="{{ esc_url(add_query_arg('status', 'completed')) }}" class="btn {{ $status === 'completed' ? 'btn-primary' : 'btn-secondary' }}">{{ \App\t('Completed') }}</a>
+      <a href="{!! esc_url(add_query_arg('status', 'current')) !!}" class="btn {{ $status === 'current' ? 'btn-primary' : 'btn-secondary' }}">{{ \App\t('Current') }}</a>
+      <a href="{!! esc_url(add_query_arg('status', 'completed')) !!}" class="btn {{ $status === 'completed' ? 'btn-primary' : 'btn-secondary' }}">{{ \App\t('Completed') }}</a>
     </div>
 
     @php

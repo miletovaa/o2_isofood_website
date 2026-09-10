@@ -35,7 +35,7 @@
       @endif
 
       @if ($doi)
-        <a href="{{ esc_url($doi) }}" target="_blank" rel="noopener" class="btn-primary btn mt-6">{{ \App\t('View publication') }}</a>
+        <a href="{!! esc_url($doi) !!}" target="_blank" rel="noopener" class="btn-primary btn mt-6">{{ \App\t('View publication') }}</a>
       @endif
     </div>
   @endwhile

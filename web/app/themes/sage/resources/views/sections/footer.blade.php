@@ -27,16 +27,16 @@
         <h2 class="text-base font-display font-semibold text-ink-900">{{ \App\t('Follow us') }}</h2>
         <ul class="mt-2 flex flex-col gap-1 text-sm">
           @if ($linkedin)
-            <li><a href="{{ esc_url($linkedin) }}" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="{!! esc_url($linkedin) !!}" target="_blank" rel="noopener">LinkedIn</a></li>
           @endif
           @if ($facebook)
-            <li><a href="{{ esc_url($facebook) }}" target="_blank" rel="noopener">Facebook</a></li>
+            <li><a href="{!! esc_url($facebook) !!}" target="_blank" rel="noopener">Facebook</a></li>
           @endif
           @if ($twitter)
-            <li><a href="{{ esc_url($twitter) }}" target="_blank" rel="noopener">Twitter / X</a></li>
+            <li><a href="{!! esc_url($twitter) !!}" target="_blank" rel="noopener">Twitter / X</a></li>
           @endif
           @if ($researchgate)
-            <li><a href="{{ esc_url($researchgate) }}" target="_blank" rel="noopener">ResearchGate</a></li>
+            <li><a href="{!! esc_url($researchgate) !!}" target="_blank" rel="noopener">ResearchGate</a></li>
           @endif
         </ul>
       </div>

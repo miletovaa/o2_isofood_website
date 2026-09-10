@@ -25,9 +25,9 @@
 
     @if ($areas)
       <div class="mb-8 flex flex-wrap gap-2">
-        <a href="{{ esc_url(remove_query_arg('area')) }}" class="badge no-underline {{ empty($_GET['area']) ? 'bg-brand-600 text-white' : '' }}">{{ \App\t('All') }}</a>
+        <a href="{!! esc_url(remove_query_arg('area')) !!}" class="badge no-underline {{ empty($_GET['area']) ? 'bg-brand-600 text-white' : '' }}">{{ \App\t('All') }}</a>
         @foreach ($areas as $area)
-          <a href="{{ esc_url(add_query_arg('area', $area->term_id)) }}" class="badge no-underline {{ (int) ($_GET['area'] ?? 0) === $area->term_id ? 'bg-brand-600 text-white' : '' }}">{{ $area->name }}</a>
+          <a href="{!! esc_url(add_query_arg('area', $area->term_id)) !!}" class="badge no-underline {{ (int) ($_GET['area'] ?? 0) === $area->term_id ? 'bg-brand-600 text-white' : '' }}">{{ $area->name }}</a>
         @endforeach
       </div>
     @endif
@@ -49,7 +49,7 @@
               {{ trim($authorNames . ($external ? ', ' . $external : ''), ', ') }} &mdash; {{ $venue }} ({{ $year }})
             </p>
             @if ($doi)
-              <a href="{{ esc_url($doi) }}" target="_blank" rel="noopener" class="text-sm">{{ \App\t('View publication') }} &rarr;</a>
+              <a href="{!! esc_url($doi) !!}" target="_blank" rel="noopener" class="text-sm">{{ \App\t('View publication') }} &rarr;</a>
             @endif
           </li>
         @endforeach

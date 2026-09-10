@@ -26,7 +26,7 @@
           <div><dt class="inline font-medium">{{ \App\t('Country') }}:</dt> <dd class="inline">{{ $country }}</dd></div>
         @endif
         @if ($website)
-          <div><a href="{{ esc_url($website) }}" target="_blank" rel="noopener" class="btn-primary btn mt-2 inline-flex">{{ \App\t('Visit Website') }}</a></div>
+          <div><a href="{!! esc_url($website) !!}" target="_blank" rel="noopener" class="btn-primary btn mt-2 inline-flex">{{ \App\t('Visit Website') }}</a></div>
         @endif
       </dl>
     </div>

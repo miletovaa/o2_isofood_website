@@ -52,7 +52,7 @@
           <div><span class="font-medium">{{ \App\t('Status') }}:</span> {{ $status }}</div>
         @endif
         @if ($website)
-          <div><a href="{{ esc_url($website) }}" target="_blank" rel="noopener" class="btn-primary btn">{{ \App\t('Project Website') }}</a></div>
+          <div><a href="{!! esc_url($website) !!}" target="_blank" rel="noopener" class="btn-primary btn">{{ \App\t('Project Website') }}</a></div>
         @endif
       </aside>
     </div>

@@ -28,7 +28,7 @@
 
         @if ($mapEmbed)
           <div class="mt-6 overflow-hidden rounded-lg border border-ink-200">
-            <iframe src="{{ esc_url($mapEmbed) }}" width="100%" height="300" style="border:0;" allowfullscreen loading="lazy" title="{{ \App\t('Map') }}"></iframe>
+            <iframe src="{!! esc_url($mapEmbed) !!}" width="100%" height="300" style="border:0;" allowfullscreen loading="lazy" title="{{ \App\t('Map') }}"></iframe>
           </div>
         @endif
       </div>
