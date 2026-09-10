@@ -3,19 +3,19 @@
 @section('content')
   <div class="page-header bg-brand-50">
     <div class="section">
-      <h1 class="text-3xl">{{ \App\t('Methods & Facilities') }}</h1>
+      <h1 class="text-5xl sm:text-6xl">{{ \App\t('Methods & Facilities') }}</h1>
+
+      @php
+        $facilitiesIntro = \App\isofood_option('facilities_intro');
+      @endphp
+
+      @if ($facilitiesIntro)
+        <p class="my-8 text-lg text-ink-700">{!! $facilitiesIntro !!}</p>
+      @endif
     </div>
   </div>
 
   <div class="section">
-    @php
-      $facilitiesIntro = \App\isofood_option('facilities_intro');
-    @endphp
-
-    @if ($facilitiesIntro)
-      <p class="mb-8 text-lg text-ink-700">{!! $facilitiesIntro !!}</p>
-    @endif
-
     @php
       $types = get_terms(['taxonomy' => 'facility_type', 'hide_empty' => true]);
       $activeType = (int) ($_GET['type'] ?? 0);
@@ -43,12 +43,18 @@
     @if ($facilities)
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         @foreach ($facilities as $facility)
-          <a href="{{ get_permalink($facility) }}" class="card block no-underline hover:shadow-md">
-            @if (has_post_thumbnail($facility))
-              {!! get_the_post_thumbnail($facility, 'medium', ['class' => 'mb-4 w-full rounded-md object-cover aspect-video']) !!}
+          @php($thumbId = get_post_thumbnail_id($facility))
+          <a href="{{ get_permalink($facility) }}" class="group relative block aspect-[4/5] overflow-hidden rounded-lg no-underline shadow-sm transition-shadow hover:shadow-lg">
+            @if ($thumbId)
+              {!! wp_get_attachment_image($thumbId, 'medium_large', false, ['class' => 'absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105']) !!}
+            @else
+              <div class="absolute inset-0 bg-gradient-to-br from-brand-600 to-brand-800"></div>
             @endif
-            <h2 class="text-lg">{!! get_the_title($facility) !!}</h2>
-            <p class="mt-2 text-sm text-ink-600">{{ get_field('short_summary', $facility->ID) }}</p>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent"></div>
+            <div class="absolute inset-x-0 bottom-0 p-5">
+              <h2 class="text-lg text-white">{!! get_the_title($facility) !!}</h2>
+              <p class="mt-1 text-sm text-white/80 line-clamp-2">{{ get_field('short_summary', $facility->ID) }}</p>
+            </div>
           </a>
         @endforeach
       </div>

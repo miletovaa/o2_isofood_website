@@ -3,7 +3,7 @@
 @section('content')
   <div class="page-header bg-brand-50">
     <div class="section">
-      <h1 class="text-3xl">{{ \App\t('Research Areas') }}</h1>
+      <h1 class="text-5xl sm:text-6xl">{{ \App\t('Research Areas') }}</h1>
     </div>
   </div>
 

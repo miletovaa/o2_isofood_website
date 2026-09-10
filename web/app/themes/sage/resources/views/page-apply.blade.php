@@ -17,7 +17,7 @@
   @while (have_posts()) @php(the_post())
     <div class="page-header bg-brand-50">
       <div class="section">
-        <h1 class="text-3xl">{!! get_the_title() !!}</h1>
+        <h1 class="text-5xl sm:text-6xl">{!! get_the_title() !!}</h1>
         @if ($position)
           <p class="mt-2 text-brand-700">{{ \App\t('Applying for') }}: <strong>{!! get_the_title($position) !!}</strong></p>
         @endif

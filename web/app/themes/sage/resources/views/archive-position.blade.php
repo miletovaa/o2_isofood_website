@@ -3,7 +3,7 @@
 @section('content')
   <div class="page-header bg-brand-50">
     <div class="section flex flex-wrap items-center justify-between gap-4">
-      <h1 class="text-3xl">{{ \App\t('Open Positions') }}</h1>
+      <h1 class="text-5xl sm:text-6xl">{{ \App\t('Open Positions') }}</h1>
       <a href="{{ home_url('/apply/') }}" class="btn-primary btn-large btn">{{ \App\t('Apply') }}</a>
     </div>
   </div>
