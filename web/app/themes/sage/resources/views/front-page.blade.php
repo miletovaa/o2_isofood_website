@@ -199,6 +199,58 @@
       </section>
     @endif
 
+    <section class="section">
+      @if ($groupPhotoId)
+        <div class="grid items-center gap-10 rounded-2xl bg-brand-50 p-8 lg:grid-cols-2 lg:p-0">
+          <div class="lg:p-10">
+            <h2 class="text-2xl">{{ \App\t('Our Positions') }}</h2>
+            <p class="mt-3 text-ink-700">
+              {{ \App\t('We regularly welcome MSc, PhD, and postdoctoral researchers into a friendly, multidisciplinary group working across a range of projects and scientific backgrounds — from food chemistry to environmental science and archaeology.') }}
+            </p>
+            <a href="{{ home_url('/positions/') }}" class="btn-primary btn mt-5">{{ \App\t('View Open Positions') }}</a>
+          </div>
+          <div class="h-64 lg:h-80">
+            {!! wp_get_attachment_image($groupPhotoId, 'large', false, ['class' => 'h-full w-full rounded-2xl object-cover lg:rounded-l-none']) !!}
+          </div>
+        </div>
+      @endif
+
+      <div class="mt-12 grid gap-8 sm:grid-cols-3">
+        <div>
+          <span class="flex h-12 w-12 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+              <circle cx="9" cy="7" r="4" /><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2" /><circle cx="17" cy="7" r="3" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+            </svg>
+          </span>
+          <h3 class="mt-3 text-lg">{{ \App\t('Our Team') }}</h3>
+          <p class="mt-2 text-sm text-ink-600">{{ \App\t('Meet the researchers, postdocs, and students behind ISO-Food.') }}</p>
+          <a href="{{ home_url('/about/') }}" class="mt-2 inline-block text-sm font-medium">{{ \App\t('Learn more') }} &rarr;</a>
+        </div>
+
+        <div>
+          <span class="flex h-12 w-12 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+              <circle cx="12" cy="5" r="2" /><circle cx="5" cy="19" r="2" /><circle cx="19" cy="19" r="2" /><path d="M12 7v6" /><path d="m12 13-6 4" /><path d="m12 13 6 4" />
+            </svg>
+          </span>
+          <h3 class="mt-3 text-lg">{{ \App\t('Collaborators') }}</h3>
+          <p class="mt-2 text-sm text-ink-600">{{ \App\t('National and international partners and networks we work with.') }}</p>
+          <a href="{{ home_url('/collaborators/') }}" class="mt-2 inline-block text-sm font-medium">{{ \App\t('Learn more') }} &rarr;</a>
+        </div>
+
+        <div>
+          <span class="flex h-12 w-12 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+              <rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" />
+            </svg>
+          </span>
+          <h3 class="mt-3 text-lg">{{ \App\t('Get in Touch') }}</h3>
+          <p class="mt-2 text-sm text-ink-600">{{ \App\t('Questions, collaboration ideas, or media enquiries — reach out any time.') }}</p>
+          <a href="{{ home_url('/contact/') }}" class="mt-2 inline-block text-sm font-medium">{{ \App\t('Contact us') }} &rarr;</a>
+        </div>
+      </div>
+    </section>
+
     @if ($linkedinEmbed)
       <section class="section">
         <h2 class="text-2xl">{{ \App\t('Follow us on LinkedIn') }}</h2>
