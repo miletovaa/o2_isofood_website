@@ -46,8 +46,9 @@
             food and biological materials, as well as environmental and archaeological processes.
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
-            <a href="{{ home_url('/research-areas/') }}" class="btn-primary btn-large btn">Explore Our Research</a>
+            <a href="#key-research-themes" class="btn-primary btn-large btn">Explore Our Research</a>
             <a href="{{ home_url('/about/') }}" class="btn-secondary btn-large btn">Meet the Team</a>
+            <a href="{{ home_url('/positions/') }}" class="btn-secondary btn-large btn">Job Opportunities</a>
           </div>
         </div>
 
@@ -78,7 +79,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section id="key-research-themes" class="section scroll-mt-24">
       <h2 class="text-2xl">Key Research Themes</h2>
       <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <div class="card">
