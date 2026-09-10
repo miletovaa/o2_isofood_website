@@ -124,26 +124,6 @@
       </div>
     </section>
 
-    @if ($instruments)
-      <section class="section bg-ink-50">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-          <h2 class="text-2xl">{{ \App\t('Our Instruments') }}</h2>
-          <a href="{{ home_url('/facilities/') }}" class="font-medium text-brand-700 no-underline hover:text-brand-900">
-            {{ \App\t('Learn more') }}
-          </a>
-        </div>
-
-        <ul class="mt-6 grid gap-8 sm:grid-cols-3">
-          @foreach ($instruments as $instrument)
-            <li>
-              <a href="{{ get_permalink($instrument) }}" class="font-medium">{!! get_the_title($instrument) !!}</a>
-              <p class="mt-1 text-sm text-ink-500">{{ get_field('short_summary', $instrument->ID) }}</p>
-            </li>
-          @endforeach
-        </ul>
-      </section>
-    @endif
-
     @if ($latestNews || $featuredPublications || $groupPhotoId)
       <section class="bg-brand-800">
         <div class="section">
@@ -189,6 +169,35 @@
             @endif
           </div>
         </div>
+      </section>
+    @endif
+
+
+    @if ($instruments)
+      <section class="section bg-ink-50 mt-12">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <h2 class="text-2xl">{{ \App\t('Our Instruments') }}</h2>
+          <a href="{{ home_url('/facilities/') }}" class="font-medium text-brand-700 no-underline hover:text-brand-900">
+            {{ \App\t('Learn more') }}
+          </a>
+        </div>
+
+        <ul class="mt-6 grid gap-8 sm:grid-cols-3">
+          @foreach ($instruments as $instrument)
+            @php($thumbId = get_post_thumbnail_id($instrument))
+            <li>
+              <a href="{{ get_permalink($instrument) }}" class="block no-underline">
+                @if ($thumbId)
+                  {!! wp_get_attachment_image($thumbId, 'medium', false, ['class' => 'mb-3 aspect-[4/3] w-full rounded-lg object-cover']) !!}
+                @else
+                  <div class="mb-3 aspect-[4/3] w-full rounded-lg bg-gradient-to-br from-brand-100 to-brand-300"></div>
+                @endif
+                <span class="font-medium">{!! get_the_title($instrument) !!}</span>
+                <p class="mt-1 text-sm text-ink-500">{{ get_field('short_summary', $instrument->ID) }}</p>
+              </a>
+            </li>
+          @endforeach
+        </ul>
       </section>
     @endif
 
