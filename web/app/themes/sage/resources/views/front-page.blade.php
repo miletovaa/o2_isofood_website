@@ -34,16 +34,11 @@
           <p class="text-sm font-semibold uppercase tracking-widest text-brand-600">
             Jo&#382;ef Stefan Institute &middot; Department of Environmental Sciences
           </p>
-          <h1 class="mt-3 text-4xl leading-tight sm:text-5xl">{{ $heading }}</h1>
+          <h1 class="mt-3 text-5xl leading-[1.05] sm:text-6xl lg:text-7xl">{{ $heading }}</h1>
           <p class="mt-6 text-xl leading-relaxed text-ink-800">
             A multidisciplinary research center specializing in
             <span class="font-semibold text-brand-700">food authenticity, traceability and quality</span>,
             environmental research, archaeology, and health-related sciences.
-          </p>
-          <p class="mt-4 leading-relaxed text-ink-600">
-            We combine stable isotope analysis, mass spectrometry, chemical characterization, and
-            advanced statistical methods to investigate the origin, composition, and quality of
-            food and biological materials, as well as environmental and archaeological processes.
           </p>
         </div>
 
@@ -70,6 +65,9 @@
             </svg>
           </div>
           <p class="text-sm leading-relaxed text-ink-600">
+            We combine stable isotope analysis, mass spectrometry, chemical characterization, and
+            advanced statistical methods to investigate the origin, composition, and quality of
+            food and biological materials, as well as environmental and archaeological processes.<br><br>
             The Center also performs <strong class="text-ink-900">accredited stable isotope
             analyses</strong>, including the determination of carbon stable isotope ratios by mass
             spectrometry and the determination of oxygen stable isotope ratios in water extracted
