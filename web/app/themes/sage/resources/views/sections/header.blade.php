@@ -7,7 +7,7 @@
     :class="scrolled ? 'bg-white border-b border-ink-200 shadow-sm' : 'bg-transparent border-b border-transparent'"
   @endif
 >
-  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-6 lg:px-8">
     <a class="brand flex items-center gap-2 text-lg font-display font-bold text-ink-900 no-underline" href="{{ home_url('/') }}">
       {!! $siteName !!}
     </a>
@@ -39,7 +39,7 @@
       @if (has_nav_menu('primary_navigation'))
         {!! wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'nav-mobile flex flex-col gap-1', 'container' => false, 'echo' => false]) !!}
       @endif
-      <div class="pt-3">
+      <div class="pt-3 cursor-pointer">
         @include('partials.language-switcher')
       </div>
     </div>

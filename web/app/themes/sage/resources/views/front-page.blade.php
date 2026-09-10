@@ -23,6 +23,16 @@
         'meta_key' => 'featured',
         'meta_value' => '1',
       ]);
+
+      $instruments = get_posts([
+        'post_type' => 'facility',
+        'numberposts' => 3,
+        'tax_query' => [[
+          'taxonomy' => 'facility_type',
+          'field' => 'slug',
+          'terms' => 'instrument',
+        ]],
+      ]);
     @endphp
 
     <section class="relative overflow-hidden bg-gradient-to-br from-brand-50 via-brand-50 to-white">
@@ -114,40 +124,87 @@
       </div>
     </section>
 
-    <!-- @if ($latestNews || $featuredPublications)
+    @if ($latestNews || $featuredPublications || $groupPhotoId)
       <section class="section bg-ink-50">
-        <h2 class="text-2xl">{{ \App\t('Current highlights') }}</h2>
-        <div class="mt-6 grid gap-8 md:grid-cols-2">
-          @if ($latestNews)
-            <div>
-              <h3 class="text-base font-semibold text-ink-700">{{ \App\t('News') }}</h3>
-              <ul class="mt-3 space-y-3">
-                @foreach ($latestNews as $news)
-                  <li>
-                    <a href="{{ get_permalink($news) }}" class="font-medium">{!! get_the_title($news) !!}</a>
-                    <p class="text-sm text-ink-500">{{ get_the_date('', $news) }}</p>
-                  </li>
-                @endforeach
-              </ul>
-            </div>
-          @endif
+        <div class="grid gap-10 lg:grid-cols-3 lg:items-start">
+          <div class="lg:col-span-2">
+            <h2 class="text-2xl">{{ \App\t('Current highlights') }}</h2>
+            <div class="mt-6 grid gap-8 sm:grid-cols-2">
+              @if ($latestNews)
+                <div>
+                  <h3 class="text-base font-semibold text-ink-700">{{ \App\t('News') }}</h3>
+                  <ul class="mt-3 space-y-3">
+                    @foreach ($latestNews as $news)
+                      <li>
+                        <a href="{{ get_permalink($news) }}" class="font-medium">{!! get_the_title($news) !!}</a>
+                        <p class="text-sm text-ink-500">{{ get_the_date('', $news) }}</p>
+                      </li>
+                    @endforeach
+                  </ul>
+                </div>
+              @endif
 
-          @if ($featuredPublications)
+              @if ($featuredPublications)
+                <div>
+                  <h3 class="text-base font-semibold text-ink-700">{{ \App\t('Publications') }}</h3>
+                  <ul class="mt-3 space-y-3">
+                    @foreach ($featuredPublications as $pub)
+                      <li>
+                        <a href="{{ get_permalink($pub) }}" class="font-medium">{!! get_the_title($pub) !!}</a>
+                        <p class="text-sm text-ink-500">{{ get_field('venue', $pub->ID) }} ({{ get_field('year', $pub->ID) }})</p>
+                      </li>
+                    @endforeach
+                  </ul>
+                </div>
+              @endif
+
+              @if (! $latestNews && ! $featuredPublications)
+                <p class="text-sm text-ink-500">{{ \App\t('No highlights to show yet.') }}</p>
+              @endif
+            </div>
+          </div>
+
+          @if ($groupPhotoId)
             <div>
-              <h3 class="text-base font-semibold text-ink-700">{{ \App\t('Publications') }}</h3>
-              <ul class="mt-3 space-y-3">
-                @foreach ($featuredPublications as $pub)
-                  <li>
-                    <a href="{{ get_permalink($pub) }}" class="font-medium">{!! get_the_title($pub) !!}</a>
-                    <p class="text-sm text-ink-500">{{ get_field('venue', $pub->ID) }} ({{ get_field('year', $pub->ID) }})</p>
-                  </li>
-                @endforeach
-              </ul>
+              {!! wp_get_attachment_image($groupPhotoId, 'medium_large', false, ['class' => 'w-full h-auto rounded-xl shadow-md']) !!}
             </div>
           @endif
         </div>
       </section>
-    @endif -->
+    @endif
+
+    @if ($instruments)
+      <section class="section">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <h2 class="text-2xl">{{ \App\t('Our Instruments') }}</h2>
+          <a href="{{ home_url('/facilities/') }}" class="group inline-flex items-center gap-1 font-medium text-brand-700 no-underline">
+            {{ \App\t('Learn more') }}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform group-hover:translate-x-1">
+              <path d="M5 12h14" />
+              <path d="m13 6 6 6-6 6" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="mt-6 -mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0">
+          @foreach ($instruments as $instrument)
+            @php($thumbId = get_post_thumbnail_id($instrument))
+            <a href="{{ get_permalink($instrument) }}" class="group relative block aspect-[4/5] w-[80%] shrink-0 snap-start overflow-hidden rounded-lg no-underline shadow-sm transition-shadow hover:shadow-lg sm:w-auto">
+              @if ($thumbId)
+                {!! wp_get_attachment_image($thumbId, 'medium_large', false, ['class' => 'absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105']) !!}
+              @else
+                <div class="absolute inset-0 bg-gradient-to-br from-brand-600 to-brand-800"></div>
+              @endif
+              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent"></div>
+              <div class="absolute inset-x-0 bottom-0 p-5">
+                <h3 class="text-lg text-white">{!! get_the_title($instrument) !!}</h3>
+                <p class="mt-1 text-sm text-white/80 line-clamp-2">{{ get_field('short_summary', $instrument->ID) }}</p>
+              </div>
+            </a>
+          @endforeach
+        </div>
+      </section>
+    @endif
 
     @if ($linkedinEmbed)
       <section class="section">
