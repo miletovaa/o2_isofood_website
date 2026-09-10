@@ -5,7 +5,6 @@
     @php
       the_post();
       $heading = get_field('intro_heading') ?: get_the_title();
-      $introText = get_field('intro_text');
       $groupPhotoId = get_field('group_photo') ?: \App\isofood_option('default_group_photo');
       $linkedinEmbed = \App\isofood_option('linkedin_embed_url');
 
@@ -30,15 +29,70 @@
       <div class="section grid items-center gap-10 lg:grid-cols-2">
         <div>
           <h1 class="text-4xl">{{ $heading }}</h1>
-          @if ($introText)
-            <div class="prose mt-4 max-w-none text-ink-700">{!! $introText !!}</div>
-          @endif
+          <p class="mt-4 text-lg leading-relaxed text-ink-700">
+            The ISO-FOOD Center is a multidisciplinary research center specializing in
+            <strong class="text-ink-900">food authenticity, traceability and quality</strong>,
+            environmental research, archaeology, and health-related sciences.
+          </p>
+          <p class="mt-3 leading-relaxed text-ink-600">
+            We combine stable isotope analysis, mass spectrometry, chemical characterization, and
+            advanced statistical methods to investigate the origin, composition, and quality of
+            food and biological materials, as well as environmental and archaeological processes.
+          </p>
         </div>
         @if ($groupPhotoId)
           <div>
             {!! wp_get_attachment_image($groupPhotoId, 'large', false, ['class' => 'rounded-lg shadow-md w-full h-auto']) !!}
           </div>
         @endif
+      </div>
+
+      <div class="section pt-0">
+        <div class="card border-brand-200 bg-white">
+          <p class="text-sm leading-relaxed text-ink-600">
+            The Center also performs <strong class="text-ink-900">accredited stable isotope
+            analyses</strong>, including the determination of carbon stable isotope ratios by mass
+            spectrometry and the determination of oxygen stable isotope ratios in water extracted
+            from food by mass spectrometry &mdash; supporting reliable assessment of food
+            authenticity, geographical origin, and traceability.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="text-2xl">Key Research Themes</h2>
+      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="card">
+          <span class="badge">01</span>
+          <h3 class="mt-3 text-lg">Food Authenticity &amp; Traceability</h3>
+          <p class="mt-2 text-sm text-ink-600">Stable isotope analysis of light elements (C, N, S, O).</p>
+        </div>
+        <div class="card">
+          <span class="badge">02</span>
+          <h3 class="mt-3 text-lg">Food Quality</h3>
+          <p class="mt-2 text-sm text-ink-600">GC-MS and LC-MS/MS analysis of fatty acids, amino acids, phenolic compounds, and other bioactive constituents.</p>
+        </div>
+        <div class="card">
+          <span class="badge">03</span>
+          <h3 class="mt-3 text-lg">Environmental Research</h3>
+          <p class="mt-2 text-sm text-ink-600">Investigation of biogeochemical processes, ecosystem interactions, and the transfer of elements and compounds through environmental systems.</p>
+        </div>
+        <div class="card">
+          <span class="badge">04</span>
+          <h3 class="mt-3 text-lg">Archaeology</h3>
+          <p class="mt-2 text-sm text-ink-600">Isotope and chemical analysis of archaeological materials to explore past diets, mobility, provenance, and human&ndash;environment interactions.</p>
+        </div>
+        <div class="card">
+          <span class="badge">05</span>
+          <h3 class="mt-3 text-lg">Databases &amp; Data Resources</h3>
+          <p class="mt-2 text-sm text-ink-600">Development and maintenance of reference databases (<a href="http://isofoodtrack.ijs.si/" target="_blank" rel="noopener">isofoodtrack.ijs.si</a>) for stable isotope and chemical data.</p>
+        </div>
+        <div class="card">
+          <span class="badge">06</span>
+          <h3 class="mt-3 text-lg">Advanced Data Processing</h3>
+          <p class="mt-2 text-sm text-ink-600">Statistical, chemometric, and multivariate modelling for data interpretation, classification, and geographical origin discrimination.</p>
+        </div>
       </div>
     </section>
 
