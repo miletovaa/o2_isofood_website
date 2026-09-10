@@ -116,54 +116,40 @@
       </div>
     </section>
 
-    @if ($latestNews || $featuredPublications || $groupPhotoId)
+    <!-- @if ($latestNews || $featuredPublications)
       <section class="section bg-ink-50">
-        <div class="grid gap-10 lg:grid-cols-3 lg:items-start">
-          <div class="lg:col-span-2">
-            <h2 class="text-2xl">{{ \App\t('Current highlights') }}</h2>
-            <div class="mt-6 grid gap-8 sm:grid-cols-2">
-              @if ($latestNews)
-                <div>
-                  <h3 class="text-base font-semibold text-ink-700">{{ \App\t('News') }}</h3>
-                  <ul class="mt-3 space-y-3">
-                    @foreach ($latestNews as $news)
-                      <li>
-                        <a href="{{ get_permalink($news) }}" class="font-medium">{!! get_the_title($news) !!}</a>
-                        <p class="text-sm text-ink-500">{{ get_the_date('', $news) }}</p>
-                      </li>
-                    @endforeach
-                  </ul>
-                </div>
-              @endif
-
-              @if ($featuredPublications)
-                <div>
-                  <h3 class="text-base font-semibold text-ink-700">{{ \App\t('Publications') }}</h3>
-                  <ul class="mt-3 space-y-3">
-                    @foreach ($featuredPublications as $pub)
-                      <li>
-                        <a href="{{ get_permalink($pub) }}" class="font-medium">{!! get_the_title($pub) !!}</a>
-                        <p class="text-sm text-ink-500">{{ get_field('venue', $pub->ID) }} ({{ get_field('year', $pub->ID) }})</p>
-                      </li>
-                    @endforeach
-                  </ul>
-                </div>
-              @endif
-
-              @if (! $latestNews && ! $featuredPublications)
-                <p class="text-sm text-ink-500">{{ \App\t('No highlights to show yet.') }}</p>
-              @endif
-            </div>
-          </div>
-
-          @if ($groupPhotoId)
+        <h2 class="text-2xl">{{ \App\t('Current highlights') }}</h2>
+        <div class="mt-6 grid gap-8 md:grid-cols-2">
+          @if ($latestNews)
             <div>
-              {!! wp_get_attachment_image($groupPhotoId, 'medium_large', false, ['class' => 'w-full h-auto rounded-xl shadow-md']) !!}
+              <h3 class="text-base font-semibold text-ink-700">{{ \App\t('News') }}</h3>
+              <ul class="mt-3 space-y-3">
+                @foreach ($latestNews as $news)
+                  <li>
+                    <a href="{{ get_permalink($news) }}" class="font-medium">{!! get_the_title($news) !!}</a>
+                    <p class="text-sm text-ink-500">{{ get_the_date('', $news) }}</p>
+                  </li>
+                @endforeach
+              </ul>
+            </div>
+          @endif
+
+          @if ($featuredPublications)
+            <div>
+              <h3 class="text-base font-semibold text-ink-700">{{ \App\t('Publications') }}</h3>
+              <ul class="mt-3 space-y-3">
+                @foreach ($featuredPublications as $pub)
+                  <li>
+                    <a href="{{ get_permalink($pub) }}" class="font-medium">{!! get_the_title($pub) !!}</a>
+                    <p class="text-sm text-ink-500">{{ get_field('venue', $pub->ID) }} ({{ get_field('year', $pub->ID) }})</p>
+                  </li>
+                @endforeach
+              </ul>
             </div>
           @endif
         </div>
       </section>
-    @endif
+    @endif -->
 
     @if ($linkedinEmbed)
       <section class="section">
