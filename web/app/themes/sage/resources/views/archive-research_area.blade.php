@@ -8,6 +8,11 @@
   </div>
 
   <div class="section">
+    @php($researchAreasIntro = \App\isofood_option('research_areas_intro'))
+    @if ($researchAreasIntro)
+      <p class="mb-8 max-w-3xl text-lg text-ink-700">{{ $researchAreasIntro }}</p>
+    @endif
+
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       @while (have_posts()) @php(the_post())
         <a href="{{ get_permalink() }}" class="card block no-underline hover:shadow-md">

@@ -49,6 +49,13 @@ function settings_fields_schema(): array
             'default' => '',
             'sanitize' => 'sanitize_textarea_field',
         ],
+        'research_areas_intro' => [
+            'label' => 'Research Areas Intro Text',
+            'description' => 'Shown at the top of the Research Areas archive page.',
+            'type' => 'textarea',
+            'default' => '',
+            'sanitize' => 'sanitize_textarea_field',
+        ],
         'google_maps_embed_url' => [
             'label' => 'Google Maps Embed URL',
             'description' => 'The src URL of the Google Maps iframe embed for the Contact page.',
