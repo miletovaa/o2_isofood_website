@@ -19,6 +19,7 @@ define('ISOFOOD_CORE_URL', content_url('mu-plugins/isofood-core'));
 require_once __DIR__ . '/includes/helpers.php';
 require_once __DIR__ . '/includes/post-types.php';
 require_once __DIR__ . '/includes/taxonomies.php';
+require_once __DIR__ . '/includes/position-extra-fields.php';
 require_once __DIR__ . '/includes/settings-page.php';
 require_once __DIR__ . '/includes/admin-columns.php';
 require_once __DIR__ . '/includes/polylang.php';

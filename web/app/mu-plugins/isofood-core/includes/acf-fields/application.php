@@ -209,6 +209,15 @@ add_action('acf/init', function () {
                 'type' => 'text',
                 'instructions' => 'Set automatically on submission.',
             ],
+            [
+                'key' => 'field_app_extra_answers',
+                'label' => 'Position-Specific Answers',
+                'name' => 'additional_answers_summary',
+                'type' => 'textarea',
+                'instructions' => 'Answers to this position\'s custom application questions, set automatically on submission.',
+                'rows' => 5,
+                'required' => 0,
+            ],
         ],
         'location' => [[['param' => 'post_type', 'operator' => '==', 'value' => 'application']]],
     ]);

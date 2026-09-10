@@ -12,6 +12,7 @@
     $openPositions = get_posts(['post_type' => 'position', 'numberposts' => -1, 'meta_key' => 'status', 'meta_value' => 'open']);
     $positionTypes = get_terms(['taxonomy' => 'position_type', 'hide_empty' => false]);
     $researchAreas = get_terms(['taxonomy' => 'research_topic', 'hide_empty' => false]);
+    $extraFields = $positionId ? \Isofood\Core\get_position_extra_fields($positionId) : [];
   @endphp
 
   @while (have_posts()) @php(the_post())
@@ -35,13 +36,59 @@
 
         <div class="mb-6">
           <label class="field-label" for="position">{{ \App\t('Position Applying For') }}</label>
-          <select name="position" id="position" class="field-input">
+          <select
+            name="position"
+            id="position"
+            class="field-input"
+            onchange="window.location.href = this.value ? '{{ home_url('/apply/') }}?position=' + this.value : '{{ home_url('/apply/') }}'"
+          >
             <option value="">{{ \App\t('General / Speculative Application') }}</option>
             @foreach ($openPositions as $open)
               <option value="{{ $open->ID }}" @selected($positionId === $open->ID)>{!! get_the_title($open) !!}</option>
             @endforeach
           </select>
+          <p class="mt-1 text-xs text-ink-500">{{ \App\t('Changing this reloads the form with any questions specific to that position.') }}</p>
         </div>
+
+        @if ($extraFields)
+          <div class="mb-6 space-y-6 rounded-lg border border-brand-200 bg-brand-50 p-5">
+            <p class="text-sm font-semibold text-brand-700">{{ \App\t('Questions for this position') }}</p>
+
+            @foreach ($extraFields as $field)
+              @if ($field['type'] === 'checkbox')
+                <label class="flex items-center gap-2 text-sm">
+                  <input type="checkbox" name="extra[{{ $field['key'] }}]" value="1">
+                  {{ $field['label'] }}
+                </label>
+              @elseif ($field['type'] === 'select')
+                <div>
+                  <label class="field-label" for="extra_{{ $field['key'] }}">{{ $field['label'] }}</label>
+                  <select name="extra[{{ $field['key'] }}]" id="extra_{{ $field['key'] }}" class="field-input">
+                    <option value="">{{ \App\t('Select…') }}</option>
+                    @foreach ($field['options'] as $option)
+                      <option value="{{ $option }}">{{ $option }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              @else
+                <div>
+                  <span class="field-label">{{ $field['label'] }}</span>
+                  <div class="flex flex-wrap gap-4">
+                    @foreach ($field['options'] as $option)
+                      <label class="flex items-center gap-2 text-sm">
+                        <input type="checkbox" name="extra[{{ $field['key'] }}][]" value="{{ $option }}">
+                        {{ $option }}
+                      </label>
+                    @endforeach
+                  </div>
+                  @if ($field['allow_other'])
+                    <input type="text" name="extra[{{ $field['key'] }}_other]" class="field-input mt-2" placeholder="{{ \App\t('Add your own, if not listed above') }}">
+                  @endif
+                </div>
+              @endif
+            @endforeach
+          </div>
+        @endif
 
         @if ($positionTypes)
           <div class="mb-6">

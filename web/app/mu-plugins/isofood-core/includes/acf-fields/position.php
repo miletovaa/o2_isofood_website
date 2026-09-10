@@ -6,8 +6,6 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-const EXTRA_FIELD_SLOTS = 6;
-
 add_action('acf/init', function () {
     if (! function_exists('acf_add_local_field_group')) {
         return;

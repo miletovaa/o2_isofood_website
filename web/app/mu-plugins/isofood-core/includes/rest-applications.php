@@ -114,6 +114,11 @@ function handle_application_submission(\WP_REST_Request $request)
         update_field('motivation_letter_file', $letter_id, $post_id);
     }
 
+    if ($position_id) {
+        $extra_answers = format_position_extra_answers($position_id, (array) ($params['extra'] ?? []));
+        update_field('additional_answers_summary', $extra_answers, $post_id);
+    }
+
     send_application_notification($post_id, $position_title);
 
     return rest_ensure_response(['success' => true]);
@@ -127,13 +132,16 @@ function send_application_notification(int $post_id, string $position_title): vo
     $email = get_field('email', $post_id);
     $phone = get_field('phone', $post_id);
 
+    $extraAnswers = get_field('additional_answers_summary', $post_id);
+
     $subject = "New Job Application: {$position_title} — {$full_name}";
     $body = "A new application was submitted.\n\n"
         . "Position: {$position_title}\n"
         . "Name: {$full_name}\n"
         . "Email: {$email}\n"
-        . "Phone: {$phone}\n\n"
-        . "Review it here: {$edit_link}\n";
+        . "Phone: {$phone}\n"
+        . ($extraAnswers ? "\n{$extraAnswers}\n" : '')
+        . "\nReview it here: {$edit_link}\n";
 
     wp_mail($to, $subject, $body);
 }
