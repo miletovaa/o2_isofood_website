@@ -18,11 +18,11 @@
         'meta_value' => '1',
       ]);
 
-      $latestNews = get_posts(['post_type' => 'post', 'numberposts' => 3]);
+      $latestNews = get_posts(['post_type' => 'post', 'numberposts' => -1]);
 
       $featuredPublications = get_posts([
         'post_type' => 'publication',
-        'numberposts' => 3,
+        'numberposts' => -1,
         'meta_key' => 'featured',
         'meta_value' => '1',
       ]);
@@ -129,9 +129,9 @@
 
     @if ($latestNews || $featuredPublications || $highlightsPhotoId)
       <section class="bg-brand-800">
-        <div class="flex flex-col lg:flex-row lg:items-stretch">
-          <div class="grid flex-1 gap-8 py-10 px-8 sm:grid-cols-2 lg:w-3/5 lg:flex-none">
-            <div class="lg:h-[420px] lg:overflow-y-auto lg:pr-4">
+        <div class="flex flex-col lg:h-[520px] lg:flex-row">
+          <div class="grid flex-1 gap-8 py-10 px-8 sm:grid-cols-2 lg:h-full lg:w-3/5 lg:flex-none">
+            <div class="h-[280px] overflow-y-auto pr-4 lg:h-full">
               <h2 class="text-2xl text-white">{{ \App\t('News') }}</h2>
               @if ($latestNews)
                 <ul class="mt-3 space-y-3">
@@ -147,7 +147,7 @@
               @endif
             </div>
 
-            <div class="lg:h-[420px] lg:overflow-y-auto lg:pr-4">
+            <div class="h-[280px] overflow-y-auto pr-4 lg:h-full">
               <h2 class="text-2xl text-white">{{ \App\t('Publications') }}</h2>
               @if ($featuredPublications)
                 <ul class="mt-3 space-y-3">
@@ -165,7 +165,7 @@
           </div>
 
           @if ($highlightsPhotoId)
-            <div class="h-64 lg:h-auto lg:w-2/5">
+            <div class="h-64 lg:h-full lg:w-2/5">
               {!! wp_get_attachment_image($highlightsPhotoId, 'large', false, ['class' => 'h-full w-full object-cover']) !!}
             </div>
           @endif
