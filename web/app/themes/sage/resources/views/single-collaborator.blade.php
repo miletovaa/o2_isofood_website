@@ -14,7 +14,7 @@
 
     <div class="section max-w-2xl">
       @if (has_post_thumbnail())
-        {!! get_the_post_thumbnail(null, 'medium', ['class' => 'mb-6 h-32 w-auto object-contain']) !!}
+        {!! get_the_post_thumbnail(null, 'medium', ['class' => 'mb-6 h-48 w-auto object-contain']) !!}
       @endif
 
       @if ($description)

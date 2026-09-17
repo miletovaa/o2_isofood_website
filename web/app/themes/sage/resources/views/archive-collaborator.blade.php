@@ -44,9 +44,9 @@
                 $country = get_field('country', $collaborator->ID);
               @endphp
               <div class="card flex flex-col gap-6 sm:flex-row">
-                <div class="flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-ink-50">
+                <div class="flex h-44 w-44 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-ink-50">
                   @if (has_post_thumbnail($collaborator))
-                    {!! get_the_post_thumbnail($collaborator, 'medium', ['class' => 'h-full w-full object-contain p-3']) !!}
+                    {!! get_the_post_thumbnail($collaborator, 'medium', ['class' => 'h-full w-full object-contain p-5']) !!}
                   @else
                     <span class="text-3xl font-semibold text-ink-300">{{ mb_substr(get_the_title($collaborator), 0, 1) }}</span>
                   @endif
