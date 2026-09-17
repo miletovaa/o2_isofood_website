@@ -37,6 +37,8 @@ add_action('acf/init', function () {
                 'type' => 'select',
                 'choices' => [
                     'principal_investigator' => 'Principal Investigator',
+                    'researcher' => 'Researcher',
+                    'young_researcher' => 'Young Researcher',
                     'postdoc' => 'Postdoctoral Researcher',
                     'phd_researcher' => 'PhD Researcher',
                     'msc_student' => 'MSc Student',
