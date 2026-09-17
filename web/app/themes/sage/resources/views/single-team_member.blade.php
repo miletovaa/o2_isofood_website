@@ -53,7 +53,7 @@
             @foreach ($interests as $term_id)
               @php($term = get_term($term_id))
               @if ($term && ! is_wp_error($term))
-                <span class="badge">{{ $term->name }}</span>
+                <span class="badge">{!! $term->name !!}</span>
               @endif
             @endforeach
           </div>

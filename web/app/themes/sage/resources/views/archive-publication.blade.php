@@ -20,14 +20,20 @@
       }
 
       $publications = get_posts($args);
-      $areas = get_terms(['taxonomy' => 'research_topic', 'hide_empty' => true]);
+
+      // research_topic is shared across several post types — restrict the filter
+      // list to terms actually used by at least one publication (not just any post).
+      $allPublicationIds = get_posts(['post_type' => 'publication', 'numberposts' => -1, 'fields' => 'ids']);
+      $areas = $allPublicationIds
+        ? get_terms(['taxonomy' => 'research_topic', 'hide_empty' => true, 'object_ids' => $allPublicationIds])
+        : [];
     @endphp
 
     @if ($areas)
       <div class="mb-8 flex flex-wrap gap-2">
         <a href="{!! esc_url(remove_query_arg('area')) !!}" class="badge no-underline {{ empty($_GET['area']) ? 'bg-brand-600 text-white' : '' }}">{{ \App\t('All') }}</a>
         @foreach ($areas as $area)
-          <a href="{!! esc_url(add_query_arg('area', $area->term_id)) !!}" class="badge no-underline {{ (int) ($_GET['area'] ?? 0) === $area->term_id ? 'bg-brand-600 text-white' : '' }}">{{ $area->name }}</a>
+          <a href="{!! esc_url(add_query_arg('area', $area->term_id)) !!}" class="badge no-underline {{ (int) ($_GET['area'] ?? 0) === $area->term_id ? 'bg-brand-600 text-white' : '' }}">{!! $area->name !!}</a>
         @endforeach
       </div>
     @endif

@@ -39,11 +39,11 @@
                   @endif
                   @if ($levels)
                     @foreach ($levels as $level)
-                      <span class="badge">{{ $level->name }}</span>
+                      <span class="badge">{!! $level->name !!}</span>
                     @endforeach
                   @endif
                   @foreach ((array) $fields as $field)
-                    <span class="badge">{{ $field->name }}</span>
+                    <span class="badge">{!! $field->name !!}</span>
                   @endforeach
                 </div>
                 @if ($location)

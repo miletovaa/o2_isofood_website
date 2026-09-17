@@ -16,7 +16,7 @@
       @if ($types && ! is_wp_error($types))
         <div class="mb-4 flex gap-2">
           @foreach ($types as $type)
-            <span class="badge">{{ $type->name }}</span>
+            <span class="badge">{!! $type->name !!}</span>
           @endforeach
         </div>
       @endif

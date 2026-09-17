@@ -50,7 +50,7 @@
       <div class="mb-8 flex flex-wrap gap-2">
         <a href="{!! esc_url(add_query_arg('type', 'all')) !!}" class="badge no-underline {{ ! $activeType ? 'bg-brand-600 text-white' : '' }}">{{ \App\t('All') }}</a>
         @foreach ($types as $type)
-          <a href="{!! esc_url(add_query_arg('type', $type->term_id)) !!}" class="badge no-underline {{ $activeType === $type->term_id ? 'bg-brand-600 text-white' : '' }}">{{ $type->name }}</a>
+          <a href="{!! esc_url(add_query_arg('type', $type->term_id)) !!}" class="badge no-underline {{ $activeType === $type->term_id ? 'bg-brand-600 text-white' : '' }}">{!! $type->name !!}</a>
         @endforeach
       </div>
     @endif

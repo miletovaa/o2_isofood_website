@@ -97,7 +97,7 @@
               @foreach ($positionTypes as $type)
                 <label class="flex items-center gap-2 text-sm">
                   <input type="checkbox" name="desired_position_type[]" value="{{ $type->term_id }}">
-                  {{ $type->name }}
+                  {!! $type->name !!}
                 </label>
               @endforeach
             </div>
@@ -147,7 +147,7 @@
               @foreach ($researchAreas as $area)
                 <label class="flex items-center gap-2 text-sm">
                   <input type="checkbox" name="area_of_interest[]" value="{{ $area->term_id }}">
-                  {{ $area->name }}
+                  {!! $area->name !!}
                 </label>
               @endforeach
             </div>

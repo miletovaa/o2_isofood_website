@@ -27,7 +27,7 @@
 
       @if ($collaborators)
         <div class="mb-12">
-          <h2 class="text-xl">{{ $type->name }}</h2>
+          <h2 class="text-xl">{!! $type->name !!}</h2>
           <div class="mt-4 grid gap-6 sm:grid-cols-2 md:grid-cols-4">
             @foreach ($collaborators as $collaborator)
               @php($website = get_field('website', $collaborator->ID))
