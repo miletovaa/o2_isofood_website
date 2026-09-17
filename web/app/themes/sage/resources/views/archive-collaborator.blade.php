@@ -44,13 +44,15 @@
                 $country = get_field('country', $collaborator->ID);
               @endphp
               <div class="card flex flex-col gap-6 sm:flex-row">
-                <div class="flex h-44 w-44 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-ink-50">
-                  @if (has_post_thumbnail($collaborator))
-                    {!! get_the_post_thumbnail($collaborator, 'medium', ['class' => 'h-full w-full object-contain p-5']) !!}
-                  @else
-                    <span class="text-3xl font-semibold text-ink-300">{{ mb_substr(get_the_title($collaborator), 0, 1) }}</span>
-                  @endif
-                </div>
+                @if ($type->slug !== 'ministerial-support')
+                  <div class="flex h-44 w-44 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-ink-50">
+                    @if (has_post_thumbnail($collaborator))
+                      {!! get_the_post_thumbnail($collaborator, 'medium', ['class' => 'h-full w-full object-contain p-5']) !!}
+                    @else
+                      <span class="text-3xl font-semibold text-ink-300">{{ mb_substr(get_the_title($collaborator), 0, 1) }}</span>
+                    @endif
+                  </div>
+                @endif
                 <div class="min-w-0 flex-1">
                   <h3 class="text-lg">
                     <a href="{{ get_permalink($collaborator) }}" class="no-underline hover:text-brand-700">{!! get_the_title($collaborator) !!}</a>
