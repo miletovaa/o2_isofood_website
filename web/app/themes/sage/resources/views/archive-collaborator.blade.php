@@ -10,6 +10,14 @@
   <div class="section">
     @php
       $types = get_terms(['taxonomy' => 'collaborator_type', 'hide_empty' => true]);
+
+      // "Ministerial Support" always appears last, regardless of term order.
+      usort($types, function ($a, $b) {
+        $aLast = $a->slug === 'ministerial-support' ? 1 : 0;
+        $bLast = $b->slug === 'ministerial-support' ? 1 : 0;
+
+        return $aLast <=> $bLast;
+      });
     @endphp
 
     @forelse ($types as $type)
@@ -30,12 +38,18 @@
           <h2 class="text-xl">{!! $type->name !!}</h2>
           <div class="mt-4 grid gap-6 sm:grid-cols-2 md:grid-cols-4">
             @foreach ($collaborators as $collaborator)
-              @php($website = get_field('website', $collaborator->ID))
+              @php
+                $website = get_field('website', $collaborator->ID);
+                $description = get_field('short_description', $collaborator->ID);
+              @endphp
               <a href="{{ $website ? esc_url($website) : get_permalink($collaborator) }}" target="{{ $website ? '_blank' : '_self' }}" rel="noopener" class="card block text-center no-underline hover:shadow-md">
                 @if (has_post_thumbnail($collaborator))
                   {!! get_the_post_thumbnail($collaborator, 'medium', ['class' => 'mx-auto mb-3 h-16 w-auto object-contain']) !!}
                 @endif
                 <p class="font-medium">{!! get_the_title($collaborator) !!}</p>
+                @if ($description)
+                  <p class="mt-1 text-sm text-ink-600">{{ $description }}</p>
+                @endif
               </a>
             @endforeach
           </div>
