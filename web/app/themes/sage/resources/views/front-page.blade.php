@@ -131,36 +131,40 @@
       <section class="bg-brand-800">
         <div class="flex flex-col lg:h-[520px] lg:flex-row">
           <div class="grid flex-1 gap-8 py-10 px-8 sm:grid-cols-2 lg:h-full lg:w-3/5 lg:flex-none">
-            <div class="h-[280px] overflow-y-auto pr-4 lg:h-full">
-              <h2 class="text-2xl text-white">{{ \App\t('News') }}</h2>
-              @if ($latestNews)
-                <ul class="mt-3 space-y-3">
-                  @foreach ($latestNews as $news)
-                    <li>
-                      <a href="{{ get_permalink($news) }}" class="font-medium text-white hover:text-brand-100">{!! get_the_title($news) !!}</a>
-                      <p class="text-sm text-brand-200">{{ get_the_date('', $news) }}</p>
-                    </li>
-                  @endforeach
-                </ul>
-              @else
-                <p class="mt-3 text-sm text-brand-200">{{ \App\t('No news to show yet.') }}</p>
-              @endif
+            <div class="flex h-[280px] flex-col lg:h-full">
+              <h2 class="shrink-0 text-2xl text-white">{{ \App\t('News') }}</h2>
+              <div class="mt-3 flex-1 overflow-y-auto pr-4">
+                @if ($latestNews)
+                  <ul class="space-y-3">
+                    @foreach ($latestNews as $news)
+                      <li>
+                        <a href="{{ get_permalink($news) }}" class="font-medium text-white hover:text-brand-100">{!! get_the_title($news) !!}</a>
+                        <p class="text-sm text-brand-200">{{ get_the_date('', $news) }}</p>
+                      </li>
+                    @endforeach
+                  </ul>
+                @else
+                  <p class="text-sm text-brand-200">{{ \App\t('No news to show yet.') }}</p>
+                @endif
+              </div>
             </div>
 
-            <div class="h-[280px] overflow-y-auto pr-4 lg:h-full">
-              <h2 class="text-2xl text-white">{{ \App\t('Publications') }}</h2>
-              @if ($featuredPublications)
-                <ul class="mt-3 space-y-3">
-                  @foreach ($featuredPublications as $pub)
-                    <li>
-                      <a href="{{ get_permalink($pub) }}" class="font-medium text-white hover:text-brand-100">{!! get_the_title($pub) !!}</a>
-                      <p class="text-sm text-brand-200">{{ get_field('venue', $pub->ID) }} ({{ get_field('year', $pub->ID) }})</p>
-                    </li>
-                  @endforeach
-                </ul>
-              @else
-                <p class="mt-3 text-sm text-brand-200">{{ \App\t('No publications to show yet.') }}</p>
-              @endif
+            <div class="flex h-[280px] flex-col lg:h-full">
+              <h2 class="shrink-0 text-2xl text-white">{{ \App\t('Publications') }}</h2>
+              <div class="mt-3 flex-1 overflow-y-auto pr-4">
+                @if ($featuredPublications)
+                  <ul class="space-y-3">
+                    @foreach ($featuredPublications as $pub)
+                      <li>
+                        <a href="{{ get_permalink($pub) }}" class="font-medium text-white hover:text-brand-100">{!! get_the_title($pub) !!}</a>
+                        <p class="text-sm text-brand-200">{{ get_field('venue', $pub->ID) }} ({{ get_field('year', $pub->ID) }})</p>
+                      </li>
+                    @endforeach
+                  </ul>
+                @else
+                  <p class="text-sm text-brand-200">{{ \App\t('No publications to show yet.') }}</p>
+                @endif
+              </div>
             </div>
           </div>
 
