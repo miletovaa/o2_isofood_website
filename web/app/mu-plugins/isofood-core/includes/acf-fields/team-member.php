@@ -44,6 +44,7 @@ add_action('acf/init', function () {
                     'phd_researcher' => 'PhD Researcher',
                     'msc_student' => 'MSc Student',
                     'technician' => 'Technician',
+                    'professional_research_associate' => 'Professional Research Associate',
                     'administrative_staff' => 'Administrative Staff',
                 ],
             ],
