@@ -130,10 +130,10 @@
     @if ($latestNews || $featuredPublications || $highlightsPhotoId)
       <section class="bg-brand-800">
         <div class="flex flex-col lg:h-[520px] lg:flex-row">
-          <div class="grid flex-1 gap-8 py-10 px-8 sm:grid-cols-2 lg:h-full lg:w-3/5 lg:flex-none">
-            <div class="flex h-[280px] flex-col lg:h-full">
+          <div class="grid min-h-0 flex-1 gap-8 py-10 px-8 sm:grid-cols-2 lg:h-full lg:w-3/5 lg:flex-none">
+            <div class="flex h-[280px] min-h-0 flex-col lg:h-full">
               <h2 class="shrink-0 text-2xl text-white">{{ \App\t('News') }}</h2>
-              <div class="mt-3 flex-1 overflow-y-auto pr-4">
+              <div class="mt-3 min-h-0 flex-1 overflow-y-auto pr-4">
                 @if ($latestNews)
                   <ul class="space-y-3">
                     @foreach ($latestNews as $news)
@@ -149,9 +149,9 @@
               </div>
             </div>
 
-            <div class="flex h-[280px] flex-col lg:h-full">
+            <div class="flex h-[280px] min-h-0 flex-col lg:h-full">
               <h2 class="shrink-0 text-2xl text-white">{{ \App\t('Publications') }}</h2>
-              <div class="mt-3 flex-1 overflow-y-auto pr-4">
+              <div class="mt-3 min-h-0 flex-1 overflow-y-auto pr-4">
                 @if ($featuredPublications)
                   <ul class="space-y-3">
                     @foreach ($featuredPublications as $pub)
