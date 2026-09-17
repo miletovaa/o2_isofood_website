@@ -40,6 +40,7 @@ add_action('acf/init', function () {
                     'researcher' => 'Researcher',
                     'young_researcher' => 'Young Researcher',
                     'postdoc' => 'Postdoctoral Researcher',
+                    'assistant' => 'Assistant',
                     'phd_researcher' => 'PhD Researcher',
                     'msc_student' => 'MSc Student',
                     'technician' => 'Technician',
