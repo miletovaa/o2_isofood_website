@@ -5,7 +5,10 @@
     @php
       the_post();
       $heading = get_field('intro_heading') ?: get_the_title();
-      $groupPhotoId = get_field('group_photo') ?: \App\isofood_option('default_group_photo');
+      $defaultPhotoId = \App\isofood_option('default_group_photo');
+      $heroPhotoId = get_field('hero_photo') ?: $defaultPhotoId;
+      $highlightsPhotoId = get_field('highlights_photo') ?: $defaultPhotoId;
+      $positionsPhotoId = get_field('positions_photo') ?: $defaultPhotoId;
       $linkedinEmbed = \App\isofood_option('linkedin_embed_url');
 
       $featuredAreas = get_posts([
@@ -52,10 +55,10 @@
           </p>
         </div>
 
-        <!-- @if ($groupPhotoId)
+        <!-- @if ($heroPhotoId)
           <div class="relative">
             <div class="absolute -inset-4 -z-10 rounded-2xl bg-brand-100/70"></div>
-            {!! wp_get_attachment_image($groupPhotoId, 'large', false, ['class' => 'w-full h-auto rounded-2xl shadow-xl ring-1 ring-black/5']) !!}
+            {!! wp_get_attachment_image($heroPhotoId, 'large', false, ['class' => 'w-full h-auto rounded-2xl shadow-xl ring-1 ring-black/5']) !!}
           </div>
         @endif -->
       </div>
@@ -124,7 +127,7 @@
       </div>
     </section>
 
-    @if ($latestNews || $featuredPublications || $groupPhotoId)
+    @if ($latestNews || $featuredPublications || $highlightsPhotoId)
       <section class="bg-brand-800">
         <div class="flex flex-col lg:flex-row lg:items-stretch">
           <div class="grid flex-1 gap-8 py-10 px-8 sm:grid-cols-2 lg:w-3/5 lg:flex-none">
@@ -161,9 +164,9 @@
             </div>
           </div>
 
-          @if ($groupPhotoId)
+          @if ($highlightsPhotoId)
             <div class="h-64 lg:h-auto lg:w-2/5">
-              {!! wp_get_attachment_image($groupPhotoId, 'large', false, ['class' => 'h-full w-full object-cover']) !!}
+              {!! wp_get_attachment_image($highlightsPhotoId, 'large', false, ['class' => 'h-full w-full object-cover']) !!}
             </div>
           @endif
         </div>
@@ -200,7 +203,7 @@
     @endif
 
     <section class="section">
-      @if ($groupPhotoId)
+      @if ($positionsPhotoId)
         <div class="grid items-center gap-10 rounded-2xl bg-brand-50 p-8 lg:grid-cols-2 lg:p-0">
           <div class="lg:p-10">
             <h2 class="text-2xl">{{ \App\t('Our Positions') }}</h2>
@@ -210,7 +213,7 @@
             <a href="{{ home_url('/positions/') }}" class="btn-primary btn mt-5">{{ \App\t('View Open Positions') }}</a>
           </div>
           <div class="h-64 lg:h-80">
-            {!! wp_get_attachment_image($groupPhotoId, 'large', false, ['class' => 'h-full w-full rounded-2xl object-cover lg:rounded-l-none']) !!}
+            {!! wp_get_attachment_image($positionsPhotoId, 'large', false, ['class' => 'h-full w-full rounded-2xl object-cover lg:rounded-l-none']) !!}
           </div>
         </div>
       @endif
