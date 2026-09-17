@@ -36,6 +36,7 @@ add_action('acf/init', function () {
                 'name' => 'position',
                 'type' => 'select',
                 'choices' => [
+                    'head_of_research_group' => 'Head of Research Group',
                     'principal_investigator' => 'Principal Investigator',
                     'researcher' => 'Researcher',
                     'research_associate' => 'Research Associate',

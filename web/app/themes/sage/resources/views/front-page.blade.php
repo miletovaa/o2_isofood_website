@@ -132,7 +132,14 @@
         <div class="flex flex-col lg:h-[520px] lg:flex-row">
           <div class="grid min-h-0 flex-1 gap-8 py-10 px-8 sm:grid-cols-2 lg:h-full lg:w-3/5 lg:flex-none">
             <div class="flex h-[280px] min-h-0 flex-col lg:h-full">
-              <h2 class="shrink-0 text-2xl text-white">{{ \App\t('News') }}</h2>
+              <div class="flex shrink-0 items-center justify-between gap-2">
+                <h2 class="text-2xl text-white">{{ \App\t('News') }}</h2>
+                <a href="{{ home_url('/news/') }}" aria-label="{{ \App\t('View all news') }}" class="text-brand-100 hover:text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                    <path d="M5 12h14" /><path d="m13 6 6 6-6 6" />
+                  </svg>
+                </a>
+              </div>
               <div class="mt-3 min-h-0 flex-1 overflow-y-auto pr-4">
                 @if ($latestNews)
                   <ul class="space-y-3">
@@ -150,7 +157,14 @@
             </div>
 
             <div class="flex h-[280px] min-h-0 flex-col lg:h-full">
-              <h2 class="shrink-0 text-2xl text-white">{{ \App\t('Publications') }}</h2>
+              <div class="flex shrink-0 items-center justify-between gap-2">
+                <h2 class="text-2xl text-white">{{ \App\t('Publications') }}</h2>
+                <a href="{{ home_url('/publications/') }}" aria-label="{{ \App\t('View all publications') }}" class="text-brand-100 hover:text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                    <path d="M5 12h14" /><path d="m13 6 6 6-6 6" />
+                  </svg>
+                </a>
+              </div>
               <div class="mt-3 min-h-0 flex-1 overflow-y-auto pr-4">
                 @if ($featuredPublications)
                   <ul class="space-y-3">
