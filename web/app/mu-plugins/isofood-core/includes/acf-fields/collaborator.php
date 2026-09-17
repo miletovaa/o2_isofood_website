@@ -23,10 +23,12 @@ add_action('acf/init', function () {
             ],
             [
                 'key' => 'field_col_description',
-                'label' => 'Short Description',
+                'label' => 'Description',
                 'name' => 'short_description',
-                'type' => 'textarea',
-                'rows' => 3,
+                'type' => 'wysiwyg',
+                'instructions' => 'Supports paragraphs, bold text, and subheadings.',
+                'tabs' => 'text',
+                'media_upload' => 0,
                 'required' => 0,
             ],
             [

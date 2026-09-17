@@ -14,11 +14,11 @@
 
     <div class="section max-w-2xl">
       @if (has_post_thumbnail())
-        {!! get_the_post_thumbnail(null, 'medium', ['class' => 'mb-6 h-24 w-auto object-contain']) !!}
+        {!! get_the_post_thumbnail(null, 'medium', ['class' => 'mb-6 h-32 w-auto object-contain']) !!}
       @endif
 
       @if ($description)
-        <p class="text-ink-700">{{ $description }}</p>
+        <div class="prose max-w-none text-ink-700">{!! $description !!}</div>
       @endif
 
       <dl class="mt-4 space-y-1 text-sm text-ink-600">
