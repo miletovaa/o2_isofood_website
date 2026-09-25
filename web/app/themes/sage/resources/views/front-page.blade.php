@@ -244,7 +244,7 @@
             </svg>
           </span>
           <h3 class="mt-3 text-lg">{{ \App\t('Our Team') }}</h3>
-          <p class="mt-2 text-sm text-ink-600">{{ \App\t('Meet the researchers, postdocs, and students behind ISO-Food.') }}</p>
+          <p class="mt-2 text-sm text-ink-600">{{ \App\t('Meet the researchers, postdocs, and students behind ISO-Food Center.') }}</p>
           <a href="{{ home_url('/about/') }}" class="mt-2 inline-block text-sm font-medium">{{ \App\t('Learn more') }} &rarr;</a>
         </div>
 

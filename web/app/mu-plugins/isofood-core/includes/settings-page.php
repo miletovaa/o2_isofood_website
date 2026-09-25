@@ -110,7 +110,7 @@ function settings_fields_schema(): array
         'footer_copyright_text' => [
             'label' => 'Footer Copyright Text',
             'type' => 'text',
-            'default' => '© ' . gmdate('Y') . ' ISO-Food, Jožef Stefan Institute',
+            'default' => '© ' . gmdate('Y') . ' ISO-Food Center, Jožef Stefan Institute',
             'sanitize' => 'sanitize_text_field',
         ],
     ];

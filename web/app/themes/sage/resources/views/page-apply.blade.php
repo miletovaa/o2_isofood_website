@@ -224,7 +224,7 @@
           <label class="field-label" for="heard_about_us">{{ \App\t('How did you hear about us?') }}</label>
           <select name="heard_about_us" id="heard_about_us" class="field-input" @change="otherHeard = $event.target.value === 'other'">
             <option value="">{{ \App\t('Select…') }}</option>
-            @foreach (['university' => 'University / Faculty', 'linkedin' => 'LinkedIn', 'website' => 'ISO-Food Website', 'conference' => 'Conference / Event', 'referral' => 'Referral', 'other' => 'Other'] as $value => $label)
+            @foreach (['university' => 'University / Faculty', 'linkedin' => 'LinkedIn', 'website' => 'ISO-Food Center Website', 'conference' => 'Conference / Event', 'referral' => 'Referral', 'other' => 'Other'] as $value => $label)
               <option value="{{ $value }}">{{ $label }}</option>
             @endforeach
           </select>
@@ -237,7 +237,7 @@
           <label class="flex items-start gap-2 text-sm">
             <input type="checkbox" name="gdpr_consent" value="1" required class="mt-1">
             <span>
-              {{ \App\t('I consent to ISO-Food processing my personal data for the purpose of this application') }}@if (get_privacy_policy_url()), {{ \App\t('in line with the') }} <a href="{{ get_privacy_policy_url() }}">{{ \App\t('Privacy Policy') }}</a>@endif. *
+              {{ \App\t('I consent to ISO-Food Center processing my personal data for the purpose of this application') }}@if (get_privacy_policy_url()), {{ \App\t('in line with the') }} <a href="{{ get_privacy_policy_url() }}">{{ \App\t('Privacy Policy') }}</a>@endif. *
             </span>
           </label>
         </div>

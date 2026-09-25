@@ -68,7 +68,7 @@
             <label class="flex items-start gap-2 text-sm">
               <input type="checkbox" name="gdpr_consent" value="1" required class="mt-1">
               <span>
-                {{ \App\t('I consent to ISO-Food processing my personal data to respond to this message') }}@if (get_privacy_policy_url()), {{ \App\t('in line with the') }} <a href="{{ get_privacy_policy_url() }}">{{ \App\t('Privacy Policy') }}</a>@endif. *
+                {{ \App\t('I consent to ISO-Food Center processing my personal data to respond to this message') }}@if (get_privacy_policy_url()), {{ \App\t('in line with the') }} <a href="{{ get_privacy_policy_url() }}">{{ \App\t('Privacy Policy') }}</a>@endif. *
               </span>
             </label>
           </div>
