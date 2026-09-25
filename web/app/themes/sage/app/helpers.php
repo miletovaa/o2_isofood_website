@@ -111,20 +111,33 @@ function research_theme_icon(string $key, string $class = 'h-6 w-6'): string
 }
 
 /**
- * Map a research_area CPT post's slug to a research_theme_icon() key.
+ * Map a research_area CPT post's title to a research_theme_icon() key, by
+ * keyword rather than slug — slugs are set once on creation and don't follow
+ * along when an editor later renames the post, so matching on the slug alone
+ * silently breaks (every card falls back to the generic icon).
  */
-function research_area_icon_key(string $slug): string
+function research_area_icon_key(string $title): string
 {
-    $map = [
-        'food-authenticity-traceability' => 'authenticity',
-        'food-quality' => 'quality',
-        'environmental-research' => 'environmental',
-        'archaeology' => 'archaeology',
-        'databases-data-resources' => 'databases',
-        'advanced-data-processing' => 'data-processing',
+    $title = mb_strtolower($title);
+
+    $keywords = [
+        'authenticity' => ['authenticity', 'traceability', 'origin', 'fraud'],
+        'quality' => ['quality', 'volatile', 'bioactive', 'nutrition', 'aroma', 'flavour', 'flavor'],
+        'environmental' => ['environment', 'ecolog', 'pollut', 'climate', 'water', 'soil'],
+        'archaeology' => ['archaeolog', 'ancient', 'diet reconstruction', 'excavat'],
+        'databases' => ['database', 'data resource', 'isoscape', 'reference collection'],
+        'data-processing' => ['data processing', 'chemometric', 'statistic', 'machine learning', 'modelling', 'modeling'],
     ];
 
-    return $map[$slug] ?? 'default';
+    foreach ($keywords as $key => $terms) {
+        foreach ($terms as $term) {
+            if (str_contains($title, $term)) {
+                return $key;
+            }
+        }
+    }
+
+    return 'default';
 }
 
 /**
