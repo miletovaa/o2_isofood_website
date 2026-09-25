@@ -110,7 +110,19 @@ add_action('acf/init', function () {
     // Up to 6 custom application questions per position (e.g. "Required Education"
     // as a dropdown, "Lab techniques" as checkboxes with an add-your-own option).
     // See Isofood\Core\get_position_extra_fields() for how these are read back.
-    $extra_fields = [];
+    $extra_fields = [
+        [
+            'key' => 'field_pos_relevant_research_areas',
+            'label' => 'Research Tags for "Area of Interest"',
+            'name' => 'relevant_research_areas',
+            'type' => 'taxonomy',
+            'taxonomy' => 'research_topic',
+            'field_type' => 'checkbox',
+            'return_format' => 'id',
+            'instructions' => 'Which research area tags applicants can pick from on the application form for this position. Leave empty to show every research area (the site-wide default).',
+            'required' => 0,
+        ],
+    ];
 
     for ($i = 1; $i <= EXTRA_FIELD_SLOTS; $i++) {
         $extra_fields[] = [

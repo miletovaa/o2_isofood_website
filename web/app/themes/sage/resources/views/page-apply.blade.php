@@ -11,8 +11,14 @@
 
     $openPositions = get_posts(['post_type' => 'position', 'numberposts' => -1, 'meta_key' => 'status', 'meta_value' => 'open']);
     $positionTypes = get_terms(['taxonomy' => 'position_type', 'hide_empty' => false]);
-    $researchAreas = get_terms(['taxonomy' => 'research_topic', 'hide_empty' => false]);
     $extraFields = $positionId ? \Isofood\Core\get_position_extra_fields($positionId) : [];
+
+    // Positions can restrict "Area of Interest" to a specific set of tags; with
+    // no position selected (or none configured for it), fall back to every tag.
+    $relevantAreaIds = $positionId ? get_field('relevant_research_areas', $positionId) : null;
+    $researchAreas = $relevantAreaIds
+      ? get_terms(['taxonomy' => 'research_topic', 'hide_empty' => false, 'include' => $relevantAreaIds])
+      : get_terms(['taxonomy' => 'research_topic', 'hide_empty' => false]);
   @endphp
 
   @while (have_posts()) @php(the_post())
