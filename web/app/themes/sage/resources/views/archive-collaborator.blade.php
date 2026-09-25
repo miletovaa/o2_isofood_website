@@ -36,15 +36,28 @@
       @if ($collaborators)
         <div class="mb-14">
           <h2 class="text-xl">{!! $type->name !!}</h2>
-          <div class="mt-5 grid gap-6 sm:grid-cols-2 md:grid-cols-4">
+          <div class="mt-5 space-y-5">
             @foreach ($collaborators as $collaborator)
-              @php($website = get_field('website', $collaborator->ID))
-              <a href="{{ $website ? esc_url($website) : get_permalink($collaborator) }}" target="{{ $website ? '_blank' : '_self' }}" rel="noopener" class="card flex flex-col items-center justify-center gap-3 text-center no-underline hover:shadow-md">
+              @php
+                $website = get_field('website', $collaborator->ID);
+                $description = get_field('short_description', $collaborator->ID);
+              @endphp
+              <div class="card flex flex-col gap-6 sm:flex-row sm:items-start">
                 @if ($type->slug !== 'ministerial-support' && has_post_thumbnail($collaborator))
-                  {!! get_the_post_thumbnail($collaborator, 'medium', ['class' => 'h-24 w-auto object-contain']) !!}
+                  {!! get_the_post_thumbnail($collaborator, 'medium', ['class' => 'h-20 w-auto max-w-[10rem] shrink-0 object-contain']) !!}
                 @endif
-                <p class="font-medium">{!! get_the_title($collaborator) !!}</p>
-              </a>
+                <div class="min-w-0 flex-1">
+                  <h3 class="text-lg">
+                    <a href="{{ get_permalink($collaborator) }}" class="no-underline hover:text-brand-700">{!! get_the_title($collaborator) !!}</a>
+                  </h3>
+                  @if ($description)
+                    <div class="prose prose-sm mt-2 max-w-none text-ink-600">{!! $description !!}</div>
+                  @endif
+                  @if ($website)
+                    <a href="{!! esc_url($website) !!}" target="_blank" rel="noopener" class="mt-2 inline-block text-sm font-medium">{{ \App\t('Visit website') }} &rarr;</a>
+                  @endif
+                </div>
+              </div>
             @endforeach
           </div>
         </div>
