@@ -40,11 +40,20 @@ add_action('acf/init', function () {
             ],
             [
                 'key' => 'field_home_highlights_photo',
-                'label' => 'Highlights Photo',
+                'label' => 'News Photo',
                 'name' => 'highlights_photo',
                 'type' => 'image',
                 'return_format' => 'id',
-                'instructions' => 'Shown next to News & Publications in the Current Highlights section. Falls back to the Default Group Photo set in ISO-Food Settings if left empty.',
+                'instructions' => 'Shown next to the News section. Falls back to the Default Group Photo set in ISO-Food Settings if left empty.',
+                'required' => 0,
+            ],
+            [
+                'key' => 'field_home_publications_photo',
+                'label' => 'Publications Photo',
+                'name' => 'publications_photo',
+                'type' => 'image',
+                'return_format' => 'id',
+                'instructions' => 'Shown next to the Publications section. Falls back to the Default Group Photo set in ISO-Food Settings if left empty.',
                 'required' => 0,
             ],
             [

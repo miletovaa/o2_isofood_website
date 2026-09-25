@@ -7,7 +7,8 @@
       $heading = get_field('intro_heading') ?: get_the_title();
       $defaultPhotoId = \App\isofood_option('default_group_photo');
       $heroPhotoId = get_field('hero_photo') ?: $defaultPhotoId;
-      $highlightsPhotoId = get_field('highlights_photo') ?: $defaultPhotoId;
+      $newsPhotoId = get_field('highlights_photo') ?: $defaultPhotoId;
+      $publicationsPhotoId = get_field('publications_photo') ?: $defaultPhotoId;
       $positionsPhotoId = get_field('positions_photo') ?: $defaultPhotoId;
       $linkedinEmbed = \App\isofood_option('linkedin_embed_url');
 
@@ -166,69 +167,79 @@
       </section>
     @endif
 
-    @if ($latestNews || $featuredPublications || $highlightsPhotoId)
+    @if ($latestNews || $newsPhotoId)
       <section class="bg-brand-800">
-        <div class="flex flex-col lg:h-[520px] lg:flex-row">
-          <div class="grid min-h-0 flex-1 gap-8 py-10 px-8 sm:grid-cols-2 lg:h-full lg:w-3/5 lg:flex-none">
-            <div class="flex h-[280px] min-h-0 flex-col lg:h-full">
-              <div class="flex shrink-0 items-center justify-between gap-2">
-                <h2 class="text-2xl text-white">{{ \App\t('News') }}</h2>
-                <a href="{{ home_url('/news/') }}" aria-label="{{ \App\t('View all news') }}" class="text-brand-100 hover:text-white">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
-                    <path d="M5 12h14" /><path d="m13 6 6 6-6 6" />
-                  </svg>
-                </a>
-              </div>
-              <div class="mt-3 min-h-0 flex-1 overflow-y-auto pr-4">
-                @if ($latestNews)
-                  <ul class="space-y-3">
-                    @foreach ($latestNews as $news)
-                      <li>
-                        <a href="{{ get_permalink($news) }}" class="font-medium text-white hover:text-brand-100">{!! get_the_title($news) !!}</a>
-                        <p class="text-sm text-brand-200">{{ get_the_date('', $news) }}</p>
-                      </li>
-                    @endforeach
-                  </ul>
-                @else
-                  <p class="text-sm text-brand-200">{{ \App\t('No news to show yet.') }}</p>
-                @endif
-              </div>
+        <div class="flex flex-col lg:h-[420px] lg:flex-row">
+          <div class="flex h-[320px] min-h-0 flex-1 flex-col py-10 px-8 lg:h-full">
+            <div class="flex shrink-0 items-center justify-between gap-2">
+              <h2 class="text-2xl text-white">{{ \App\t('News') }}</h2>
+              <a href="{{ home_url('/news/') }}" aria-label="{{ \App\t('View all news') }}" class="text-brand-100 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path d="M5 12h14" /><path d="m13 6 6 6-6 6" />
+                </svg>
+              </a>
             </div>
-
-            <div class="flex h-[280px] min-h-0 flex-col lg:h-full">
-              <div class="flex shrink-0 items-center justify-between gap-2">
-                <h2 class="text-2xl text-white">{{ \App\t('Publications') }}</h2>
-                <a href="{{ home_url('/publications/') }}" aria-label="{{ \App\t('View all publications') }}" class="text-brand-100 hover:text-white">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
-                    <path d="M5 12h14" /><path d="m13 6 6 6-6 6" />
-                  </svg>
-                </a>
-              </div>
-              <div class="mt-3 min-h-0 flex-1 overflow-y-auto pr-4">
-                @if ($featuredPublications)
-                  <ul class="space-y-3">
-                    @foreach ($featuredPublications as $pub)
-                      @php($doi = get_field('doi_link', $pub->ID))
-                      <li>
-                        @if ($doi)
-                          <a href="{!! esc_url($doi) !!}" target="_blank" rel="noopener" class="font-medium text-white hover:text-brand-100">{!! get_the_title($pub) !!}</a>
-                        @else
-                          <span class="font-medium text-white">{!! get_the_title($pub) !!}</span>
-                        @endif
-                        <p class="text-sm text-brand-200">{{ get_field('venue', $pub->ID) }} ({{ get_field('year', $pub->ID) }})</p>
-                      </li>
-                    @endforeach
-                  </ul>
-                @else
-                  <p class="text-sm text-brand-200">{{ \App\t('No publications to show yet.') }}</p>
-                @endif
-              </div>
+            <div class="mt-3 min-h-0 flex-1 overflow-y-auto pr-4">
+              @if ($latestNews)
+                <ul class="space-y-3">
+                  @foreach ($latestNews as $news)
+                    <li>
+                      <a href="{{ get_permalink($news) }}" class="font-medium text-white hover:text-brand-100">{!! get_the_title($news) !!}</a>
+                      <p class="text-sm text-brand-200">{{ get_the_date('', $news) }}</p>
+                    </li>
+                  @endforeach
+                </ul>
+              @else
+                <p class="text-sm text-brand-200">{{ \App\t('No news to show yet.') }}</p>
+              @endif
             </div>
           </div>
 
-          @if ($highlightsPhotoId)
+          @if ($newsPhotoId)
             <div class="h-64 lg:h-full lg:w-2/5">
-              {!! wp_get_attachment_image($highlightsPhotoId, 'large', false, ['class' => 'h-full w-full object-cover']) !!}
+              {!! wp_get_attachment_image($newsPhotoId, 'large', false, ['class' => 'h-full w-full object-cover']) !!}
+            </div>
+          @endif
+        </div>
+      </section>
+    @endif
+
+    @if ($featuredPublications || $publicationsPhotoId)
+      <section class="bg-brand-900">
+        <div class="flex flex-col lg:h-[420px] lg:flex-row">
+          <div class="flex h-[320px] min-h-0 flex-1 flex-col py-10 px-8 lg:h-full">
+            <div class="flex shrink-0 items-center justify-between gap-2">
+              <h2 class="text-2xl text-white">{{ \App\t('Publications') }}</h2>
+              <a href="{{ home_url('/publications/') }}" aria-label="{{ \App\t('View all publications') }}" class="text-brand-100 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path d="M5 12h14" /><path d="m13 6 6 6-6 6" />
+                </svg>
+              </a>
+            </div>
+            <div class="mt-3 min-h-0 flex-1 overflow-y-auto pr-4">
+              @if ($featuredPublications)
+                <ul class="space-y-3">
+                  @foreach ($featuredPublications as $pub)
+                    @php($doi = get_field('doi_link', $pub->ID))
+                    <li>
+                      @if ($doi)
+                        <a href="{!! esc_url($doi) !!}" target="_blank" rel="noopener" class="font-medium text-white hover:text-brand-100">{!! get_the_title($pub) !!}</a>
+                      @else
+                        <span class="font-medium text-white">{!! get_the_title($pub) !!}</span>
+                      @endif
+                      <p class="text-sm text-brand-200">{{ get_field('venue', $pub->ID) }} ({{ get_field('year', $pub->ID) }})</p>
+                    </li>
+                  @endforeach
+                </ul>
+              @else
+                <p class="text-sm text-brand-200">{{ \App\t('No publications to show yet.') }}</p>
+              @endif
+            </div>
+          </div>
+
+          @if ($publicationsPhotoId)
+            <div class="h-64 lg:h-full lg:w-2/5">
+              {!! wp_get_attachment_image($publicationsPhotoId, 'large', false, ['class' => 'h-full w-full object-cover']) !!}
             </div>
           @endif
         </div>
