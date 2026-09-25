@@ -25,6 +25,7 @@ require_once __DIR__ . '/includes/admin-columns.php';
 require_once __DIR__ . '/includes/polylang.php';
 require_once __DIR__ . '/includes/rest-applications.php';
 require_once __DIR__ . '/includes/rest-contact.php';
+require_once __DIR__ . '/includes/team-member-ordering.php';
 
 foreach (glob(__DIR__ . '/includes/acf-fields/*.php') as $field_file) {
     require_once $field_file;
