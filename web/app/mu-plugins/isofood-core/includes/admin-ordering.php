@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Drag-and-drop ordering for the Team Members admin list, so staff can
- * reorder the About Us page by dragging rows instead of typing numbers into
- * the "Order" field. Front end already sorts by menu_order (see
- * page-about.blade.php).
+ * Drag-and-drop ordering for admin list tables, so staff can reorder these
+ * front-end listings by dragging rows instead of typing numbers into the
+ * "Order" field. Front end already sorts by menu_order (see
+ * page-about.blade.php and archive-collaborator.blade.php).
  */
 
 namespace Isofood\Core;
@@ -13,7 +13,12 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-// Always list Team Members by their saved order in wp-admin.
+const ORDERABLE_POST_TYPES = [
+    'team_member' => 'the order team members appear in on the About Us page',
+    'collaborator' => 'the order collaborators appear in within each group on the Collaborators page',
+];
+
+// Always list these post types by their saved order in wp-admin.
 add_action('pre_get_posts', function (\WP_Query $query): void {
     if (! is_admin() || ! $query->is_main_query()) {
         return;
@@ -21,7 +26,7 @@ add_action('pre_get_posts', function (\WP_Query $query): void {
 
     global $typenow;
 
-    if ($typenow !== 'team_member') {
+    if (! isset(ORDERABLE_POST_TYPES[$typenow])) {
         return;
     }
 
@@ -34,7 +39,7 @@ add_action('pre_get_posts', function (\WP_Query $query): void {
 add_action('admin_enqueue_scripts', function (string $hook): void {
     global $typenow;
 
-    if ($hook !== 'edit.php' || $typenow !== 'team_member') {
+    if ($hook !== 'edit.php' || ! isset(ORDERABLE_POST_TYPES[$typenow])) {
         return;
     }
 
@@ -63,7 +68,8 @@ add_action('admin_enqueue_scripts', function (string $hook): void {
                     });
 
                     $.post(ajaxurl, {
-                        action: 'isofood_reorder_team_members',
+                        action: 'isofood_reorder_posts',
+                        post_type: window.isofoodReorderPostType,
                         order: order,
                         nonce: window.isofoodReorderNonce
                     });
@@ -72,30 +78,43 @@ add_action('admin_enqueue_scripts', function (string $hook): void {
         });
     JS);
 
-    wp_add_inline_script('jquery-ui-sortable', 'window.isofoodReorderNonce = ' . wp_json_encode(wp_create_nonce('isofood_reorder_team_members')) . ';', 'before');
+    wp_add_inline_script('jquery-ui-sortable', sprintf(
+        'window.isofoodReorderNonce = %s; window.isofoodReorderPostType = %s;',
+        wp_json_encode(wp_create_nonce('isofood_reorder_posts')),
+        wp_json_encode($typenow),
+    ), 'before');
 });
 
 add_action('admin_notices', function (): void {
     global $typenow, $pagenow;
 
-    if ($pagenow !== 'edit.php' || $typenow !== 'team_member') {
+    if ($pagenow !== 'edit.php' || ! isset(ORDERABLE_POST_TYPES[$typenow])) {
         return;
     }
 
-    echo '<div class="notice notice-info"><p>Drag and drop rows below to change the order team members appear in on the About Us page.</p></div>';
+    printf(
+        '<div class="notice notice-info"><p>Drag and drop rows below to change %s.</p></div>',
+        esc_html(ORDERABLE_POST_TYPES[$typenow]),
+    );
 });
 
-add_action('wp_ajax_isofood_reorder_team_members', function (): void {
-    check_ajax_referer('isofood_reorder_team_members', 'nonce');
+add_action('wp_ajax_isofood_reorder_posts', function (): void {
+    check_ajax_referer('isofood_reorder_posts', 'nonce');
 
     if (! current_user_can('edit_others_posts')) {
         wp_send_json_error('Not allowed', 403);
     }
 
+    $postType = sanitize_key($_POST['post_type'] ?? '');
+
+    if (! isset(ORDERABLE_POST_TYPES[$postType])) {
+        wp_send_json_error('Unknown post type', 400);
+    }
+
     $order = array_map('intval', (array) ($_POST['order'] ?? []));
 
     foreach ($order as $position => $post_id) {
-        if (get_post_type($post_id) !== 'team_member') {
+        if (get_post_type($post_id) !== $postType) {
             continue;
         }
 

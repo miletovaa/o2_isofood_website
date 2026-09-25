@@ -25,6 +25,8 @@
         $collaborators = get_posts([
           'post_type' => 'collaborator',
           'numberposts' => -1,
+          'orderby' => 'menu_order title',
+          'order' => 'ASC',
           'tax_query' => [[
             'taxonomy' => 'collaborator_type',
             'field' => 'term_id',
@@ -41,14 +43,15 @@
               @php
                 $website = get_field('website', $collaborator->ID);
                 $description = get_field('short_description', $collaborator->ID);
+                $hasPhoto = $type->slug !== 'ministerial-support' && has_post_thumbnail($collaborator);
               @endphp
               <div class="card flex flex-col gap-5 sm:flex-row sm:items-center">
-                @if ($type->slug !== 'ministerial-support' && has_post_thumbnail($collaborator))
+                @if ($hasPhoto)
                   <div class="flex h-20 w-32 shrink-0 items-center justify-center self-start sm:self-center">
                     {!! get_the_post_thumbnail($collaborator, 'medium', ['class' => 'max-h-full max-w-full object-contain']) !!}
                   </div>
                 @endif
-                <div class="min-w-0 flex-1 sm:border-l sm:border-ink-200 sm:pl-6">
+                <div class="min-w-0 flex-1 {{ $hasPhoto ? 'sm:border-l sm:border-ink-200 sm:pl-6' : '' }}">
                   <h3 class="text-lg">
                     <a href="{{ get_permalink($collaborator) }}" class="no-underline hover:text-brand-700">{!! get_the_title($collaborator) !!}</a>
                   </h3>

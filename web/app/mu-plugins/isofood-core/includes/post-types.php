@@ -70,7 +70,7 @@ function register_post_types(): void
         'has_archive' => true,
         'show_in_rest' => true,
         'menu_icon' => 'dashicons-networking',
-        'supports' => ['title', 'thumbnail'],
+        'supports' => ['title', 'thumbnail', 'page-attributes'],
         'rewrite' => ['slug' => 'collaborators'],
     ]);
 
