@@ -15,6 +15,13 @@ const OPTION_KEY = 'isofood_options';
 function settings_fields_schema(): array
 {
     return [
+        'site_logo' => [
+            'label' => 'Site Logo',
+            'description' => 'Shown in the header next to (or instead of) the site name. Leave empty to show the site name as plain text.',
+            'type' => 'media',
+            'default' => 0,
+            'sanitize' => 'absint',
+        ],
         'application_notification_email' => [
             'label' => 'Application Notification Email',
             'description' => 'Receives an email whenever a new job application is submitted.',

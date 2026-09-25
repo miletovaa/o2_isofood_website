@@ -8,8 +8,13 @@
   @endif
 >
   <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-6 lg:px-8">
+    @php($logoId = \App\isofood_option('site_logo'))
     <a class="brand flex items-center gap-2 text-lg font-display font-bold text-ink-900 no-underline" href="{{ home_url('/') }}">
-      {!! $siteName !!}
+      @if ($logoId)
+        {!! wp_get_attachment_image($logoId, 'medium', false, ['class' => 'h-10 w-auto', 'alt' => wp_strip_all_tags($siteName)]) !!}
+      @else
+        {!! $siteName !!}
+      @endif
     </a>
 
     <button
