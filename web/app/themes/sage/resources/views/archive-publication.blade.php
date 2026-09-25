@@ -50,13 +50,14 @@
             $doi = get_field('doi_link', $pub->ID);
           @endphp
           <li class="card">
-            <a href="{{ get_permalink($pub) }}" class="text-lg font-medium">{!! get_the_title($pub) !!}</a>
+            @if ($doi)
+              <a href="{!! esc_url($doi) !!}" target="_blank" rel="noopener" class="text-lg font-medium">{!! get_the_title($pub) !!}</a>
+            @else
+              <span class="text-lg font-medium">{!! get_the_title($pub) !!}</span>
+            @endif
             <p class="mt-1 text-sm text-ink-600">
               {{ trim($authorNames . ($external ? ', ' . $external : ''), ', ') }} &mdash; {{ $venue }} ({{ $year }})
             </p>
-            @if ($doi)
-              <a href="{!! esc_url($doi) !!}" target="_blank" rel="noopener" class="text-sm">{{ \App\t('View publication') }} &rarr;</a>
-            @endif
           </li>
         @endforeach
       </ul>

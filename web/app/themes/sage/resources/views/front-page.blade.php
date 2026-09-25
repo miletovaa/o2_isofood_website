@@ -169,8 +169,13 @@
                 @if ($featuredPublications)
                   <ul class="space-y-3">
                     @foreach ($featuredPublications as $pub)
+                      @php($doi = get_field('doi_link', $pub->ID))
                       <li>
-                        <a href="{{ get_permalink($pub) }}" class="font-medium text-white hover:text-brand-100">{!! get_the_title($pub) !!}</a>
+                        @if ($doi)
+                          <a href="{!! esc_url($doi) !!}" target="_blank" rel="noopener" class="font-medium text-white hover:text-brand-100">{!! get_the_title($pub) !!}</a>
+                        @else
+                          <span class="font-medium text-white">{!! get_the_title($pub) !!}</span>
+                        @endif
                         <p class="text-sm text-brand-200">{{ get_field('venue', $pub->ID) }} ({{ get_field('year', $pub->ID) }})</p>
                       </li>
                     @endforeach
