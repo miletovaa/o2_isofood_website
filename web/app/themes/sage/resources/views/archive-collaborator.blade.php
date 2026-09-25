@@ -42,16 +42,18 @@
                 $website = get_field('website', $collaborator->ID);
                 $description = get_field('short_description', $collaborator->ID);
               @endphp
-              <div class="card flex flex-col gap-6 sm:flex-row sm:items-start">
+              <div class="card flex flex-col gap-5 sm:flex-row sm:items-center">
                 @if ($type->slug !== 'ministerial-support' && has_post_thumbnail($collaborator))
-                  {!! get_the_post_thumbnail($collaborator, 'medium', ['class' => 'h-20 w-auto max-w-[10rem] shrink-0 object-contain']) !!}
+                  <div class="flex h-20 w-32 shrink-0 items-center justify-center self-start sm:self-center">
+                    {!! get_the_post_thumbnail($collaborator, 'medium', ['class' => 'max-h-full max-w-full object-contain']) !!}
+                  </div>
                 @endif
-                <div class="min-w-0 flex-1">
+                <div class="min-w-0 flex-1 sm:border-l sm:border-ink-200 sm:pl-6">
                   <h3 class="text-lg">
                     <a href="{{ get_permalink($collaborator) }}" class="no-underline hover:text-brand-700">{!! get_the_title($collaborator) !!}</a>
                   </h3>
                   @if ($description)
-                    <div class="prose prose-sm mt-2 max-w-none text-ink-600">{!! $description !!}</div>
+                    <div class="prose prose-sm mt-1 max-w-none text-ink-600 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">{!! $description !!}</div>
                   @endif
                   @if ($website)
                     <a href="{!! esc_url($website) !!}" target="_blank" rel="noopener" class="mt-2 inline-block text-sm font-medium">{{ \App\t('Visit website') }} &rarr;</a>
