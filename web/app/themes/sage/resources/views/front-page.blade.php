@@ -36,6 +36,13 @@
           'terms' => 'instrument',
         ]],
       ]);
+
+      $currentProjects = get_posts([
+        'post_type' => 'project',
+        'numberposts' => 3,
+        'meta_key' => 'status',
+        'meta_value' => 'current',
+      ]);
     @endphp
 
     <section class="relative overflow-hidden bg-gradient-to-br from-brand-50 via-brand-50 to-white">
@@ -126,6 +133,38 @@
         </div>
       </div>
     </section>
+
+    @if ($currentProjects)
+      <section class="section">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <h2 class="text-2xl">{{ \App\t('Research Projects') }}</h2>
+          <a href="{{ home_url('/projects/') }}" class="font-medium text-brand-700 no-underline hover:text-brand-900">
+            {{ \App\t('View all projects') }} &rarr;
+          </a>
+        </div>
+        <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          @foreach ($currentProjects as $project)
+            @php
+              $acronym = get_field('acronym', $project->ID);
+              $funder = get_field('funder', $project->ID);
+              $projDescription = get_field('short_description', $project->ID);
+            @endphp
+            <a href="{{ get_permalink($project) }}" class="card block no-underline hover:shadow-md">
+              @if ($acronym)
+                <span class="badge">{{ $acronym }}</span>
+              @endif
+              <h3 class="mt-3 text-lg">{!! get_the_title($project) !!}</h3>
+              @if ($funder)
+                <p class="mt-1 text-sm text-brand-700">{{ $funder }}</p>
+              @endif
+              @if ($projDescription)
+                <p class="mt-2 text-sm text-ink-600">{{ wp_trim_words($projDescription, 20) }}</p>
+              @endif
+            </a>
+          @endforeach
+        </div>
+      </section>
+    @endif
 
     @if ($latestNews || $featuredPublications || $highlightsPhotoId)
       <section class="bg-brand-800">
